@@ -1,0 +1,772 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C6D51B87-ADEC-448B-8453-1F49CD30CC2E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".babelrc" />
+    <Content Include="package.json" />
+    <None Include="packages.config" />
+    <Content Include="thirdparty\jqueryui\package.json" />
+    <Content Include="thirdparty\libs\dat.gui.js.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\common.css" />
+    <Content Include="css\dat.gui.css" />
+    <Content Include="css\evol-colorpicker.css" />
+    <Content Include="css\evol-colorpicker.min.css" />
+    <Content Include="css\images\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="css\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="css\images\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="css\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="css\images\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="css\images\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="css\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\images\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="css\images\ui-icons_a83300_256x240.png" />
+    <Content Include="css\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\img\diy\1_close.png" />
+    <Content Include="css\img\diy\1_open.png" />
+    <Content Include="css\img\diy\2.png" />
+    <Content Include="css\img\diy\3.png" />
+    <Content Include="css\img\diy\4.png" />
+    <Content Include="css\img\diy\5.png" />
+    <Content Include="css\img\diy\6.png" />
+    <Content Include="css\img\diy\7.png" />
+    <Content Include="css\img\diy\8.png" />
+    <Content Include="css\img\diy\9.png" />
+    <Content Include="css\img\line_conn.gif" />
+    <Content Include="css\img\loading.gif" />
+    <Content Include="css\img\zTreeStandard.gif" />
+    <Content Include="css\img\zTreeStandard.png" />
+    <Content Include="css\jquery-ui.css" />
+    <Content Include="css\jquery-ui.min.css" />
+    <Content Include="css\zTreeStyle.css" />
+    <Content Include="index.html" />
+    <Content Include="js\index.js" />
+    <Content Include="rollup.config.js" />
+    <Content Include="src\command\BaseCommand.js" />
+    <Content Include="src\command\CommandDispatcher.js" />
+    <Content Include="src\command\component\MaterialCommand.js" />
+    <Content Include="src\command\component\RigidBodyCommand.js" />
+    <Content Include="src\command\component\TransformCommand.js" />
+    <Content Include="src\command\edit\RedoCommand.js" />
+    <Content Include="src\command\edit\UndoCommand.js" />
+    <Content Include="src\command\help\AboutCommand.js" />
+    <Content Include="src\command\help\DocumentCommand.js" />
+    <Content Include="src\command\object\AddBoxCommand.js" />
+    <Content Include="src\command\object\AddCircleCommand.js" />
+    <Content Include="src\command\object\AddConeCommand.js" />
+    <Content Include="src\command\object\AddCylinderCommand.js" />
+    <Content Include="src\command\object\AddDodecahedronCommand.js" />
+    <Content Include="src\command\object\AddExtrudeCommand.js" />
+    <Content Include="src\command\object\AddFireCommand.js" />
+    <Content Include="src\command\object\AddHeroCommand.js" />
+    <Content Include="src\command\object\AddIcosahedronCommand.js" />
+    <Content Include="src\command\object\AddLatheCommand.js" />
+    <Content Include="src\command\object\AddOctahedronCommand.js" />
+    <Content Include="src\command\object\AddParametricCommand.js" />
+    <Content Include="src\command\object\AddPlaneCommand.js" />
+    <Content Include="src\command\object\AddRingCommand.js" />
+    <Content Include="src\command\object\AddSphereCommand.js" />
+    <Content Include="src\command\object\AddTetrahedronCommand.js" />
+    <Content Include="src\command\object\AddTorusCommand.js" />
+    <Content Include="src\command\object\AddTorusKnotCommand.js" />
+    <Content Include="src\command\object\AddTubeCommand.js" />
+    <Content Include="src\command\run\DebugCommand.js" />
+    <Content Include="src\command\run\PlayCommand.js" />
+    <Content Include="src\command\scene\NewSceneCommand.js" />
+    <Content Include="src\command\view\PropertyPanelViewCommand.js" />
+    <Content Include="src\constant.js" />
+    <Content Include="src\editor\EditorApp.js" />
+    <Content Include="src\editor\EditorBox.js" />
+    <Content Include="src\editor\EditorMainPanel.js" />
+    <Content Include="src\editor\EditorNav.js" />
+    <Content Include="src\editor\EditorNavMenu.js" />
+    <Content Include="src\editor\EditorPropertyPanel.js" />
+    <Content Include="src\editor\EditorUI.js" />
+    <Content Include="src\editor\hierarchy\EditorHierarchy.js" />
+    <Content Include="src\editor\settings\EditorSettings.js" />
+    <Content Include="src\event\EventManager.js" />
+    <Content Include="src\geometry\Coordinate.js" />
+    <Content Include="src\geometry\Geometry.js" />
+    <Content Include="src\geometry\Line.js" />
+    <Content Include="src\geometry\Point.js" />
+    <Content Include="src\geometry\Polygon.js" />
+    <Content Include="src\lol\constant.js" />
+    <Content Include="src\lol\hero\Annie.js" />
+    <Content Include="src\lol\hero\Ashe.js" />
+    <Content Include="src\lol\hero\Garen.js" />
+    <Content Include="src\lol\hero\Hero.js" />
+    <Content Include="src\lol\hero\Janna.js" />
+    <Content Include="src\lol\hero\Jinx.js" />
+    <Content Include="src\lol\hero\Lulu.js" />
+    <Content Include="src\lol\hero\Lux.js" />
+    <Content Include="src\lol\hero\MasterYi.js" />
+    <Content Include="src\lol\hero\Plundercrab.js" />
+    <Content Include="src\lol\hero\RiftScuttler.js" />
+    <Content Include="src\lol\hero\Xayah.js" />
+    <Content Include="src\lol\Lol.js" />
+    <Content Include="src\lol\model\Animation.js" />
+    <Content Include="src\lol\model\AnimationBone.js" />
+    <Content Include="src\lol\model\BaseAnimations.js" />
+    <Content Include="src\lol\model\Bone.js" />
+    <Content Include="src\lol\model\DataView2.js" />
+    <Content Include="src\lol\model\HiddenBones.js" />
+    <Content Include="src\lol\model\Model.js" />
+    <Content Include="src\lol\model\Shader.js" />
+    <Content Include="src\lol\model\Texture.js" />
+    <Content Include="src\lol\model\Vertex.js" />
+    <Content Include="src\lol\ui\AddHeroWin.js" />
+    <Content Include="src\main.js" />
+    <Content Include="src\property\animation\AnimationProperty.js" />
+    <Content Include="src\property\audio\AudioProperty.js" />
+    <Content Include="src\property\BaseProperty.js" />
+    <Content Include="src\property\camera\CameraProperty.js" />
+    <Content Include="src\property\camera\CubeCameraProperty.js" />
+    <Content Include="src\property\camera\OrthographicCameraProperty.js" />
+    <Content Include="src\property\camera\PerspectiveCameraProperty.js" />
+    <Content Include="src\property\camera\StereoCameraProperty.js" />
+    <Content Include="src\property\geometry\BoxGeometryProperty.js" />
+    <Content Include="src\property\geometry\CircleGeometryProperty.js" />
+    <Content Include="src\property\geometry\ConeGeometryProperty.js" />
+    <Content Include="src\property\geometry\CylinderGeometryProperty.js" />
+    <Content Include="src\property\geometry\DodecahedronGeometryProperty.js" />
+    <Content Include="src\property\geometry\ExtrudeGeometryProperty.js" />
+    <Content Include="src\property\geometry\GeometryProperty.js" />
+    <Content Include="src\property\geometry\IcosahedronGeometryProperty.js" />
+    <Content Include="src\property\geometry\LatheGeometryProperty.js" />
+    <Content Include="src\property\geometry\OctahedronGeometryProperty.js" />
+    <Content Include="src\property\geometry\ParametricGeometryProperty.js" />
+    <Content Include="src\property\geometry\PlaneGeometryProperty.js" />
+    <Content Include="src\property\geometry\PolyhedronGeometryProperty.js" />
+    <Content Include="src\property\geometry\RingGeometryProperty.js" />
+    <Content Include="src\property\geometry\ShapeGeometryProperty.js" />
+    <Content Include="src\property\geometry\SphereGeometryProperty.js" />
+    <Content Include="src\property\geometry\TetrahedronGeometryProperty.js" />
+    <Content Include="src\property\geometry\TextGeometryProperty.js" />
+    <Content Include="src\property\geometry\TorusGeometryProperty.js" />
+    <Content Include="src\property\geometry\TorusKnotGeometryProperty.js" />
+    <Content Include="src\property\geometry\TubeGeometryProperty.js" />
+    <Content Include="src\property\light\AmbientLightProperty.js" />
+    <Content Include="src\property\light\DirectionalLightProperty.js" />
+    <Content Include="src\property\light\HemisphereLightProperty.js" />
+    <Content Include="src\property\light\LightProperty.js" />
+    <Content Include="src\property\light\PointLightProperty.js" />
+    <Content Include="src\property\light\RectAreaLightProperty.js" />
+    <Content Include="src\property\light\SpotLightProperty.js" />
+    <Content Include="src\property\material\LineBasicMaterialProperty.js" />
+    <Content Include="src\property\material\LineDashedMaterialProperty.js" />
+    <Content Include="src\property\material\MaterialProperty.js" />
+    <Content Include="src\property\material\MeshBasicMaterialProperty.js" />
+    <Content Include="src\property\material\MeshDepthMaterialProperty.js" />
+    <Content Include="src\property\material\MeshLambertMaterialProperty.js" />
+    <Content Include="src\property\material\MeshNormalMaterialProperty.js" />
+    <Content Include="src\property\material\MeshPhongMaterialProperty.js" />
+    <Content Include="src\property\material\MeshPhysicalMaterialProperty.js" />
+    <Content Include="src\property\material\MeshStandardMaterialProperty.js" />
+    <Content Include="src\property\material\MeshToonMaterialProperty.js" />
+    <Content Include="src\property\material\MultiMaterialProperty.js" />
+    <Content Include="src\property\material\PointsMaterialProperty.js" />
+    <Content Include="src\property\material\RawShaderMaterialProperty.js" />
+    <Content Include="src\property\material\ShaderMaterialProperty.js" />
+    <Content Include="src\property\material\ShadowMaterialProperty.js" />
+    <Content Include="src\property\material\SpriteMaterialProperty.js" />
+    <Content Include="src\property\object\MeshProperty.js" />
+    <Content Include="src\property\object\Object3DProperty.js" />
+    <Content Include="src\property\object\SkinnedMeshProperty.js" />
+    <Content Include="src\property\PropertyPanel.js" />
+    <Content Include="src\property\renderer\WebGLRendererProperty.js" />
+    <Content Include="src\property\scene\SceneProperty.js" />
+    <Content Include="src\property\texture\CanvasTextureProperty.js" />
+    <Content Include="src\property\texture\CompressedTextureProperty.js" />
+    <Content Include="src\property\texture\CubeTextureProperty.js" />
+    <Content Include="src\property\texture\DataTextureProperty.js" />
+    <Content Include="src\property\texture\DepthTextureProperty.js" />
+    <Content Include="src\property\texture\TextureProperty.js" />
+    <Content Include="src\property\texture\VideoTextureProperty.js" />
+    <Content Include="src\scene\log\LogScene.js" />
+    <Content Include="src\scene\Scene.js" />
+    <Content Include="src\scene\webgl\control\GlControl.js" />
+    <Content Include="src\scene\webgl\control\GlGUI.js" />
+    <Content Include="src\scene\webgl\control\GlOrbitControls.js" />
+    <Content Include="src\scene\webgl\control\GlStats.js" />
+    <Content Include="src\scene\webgl\control\GlTransformControls.js" />
+    <Content Include="src\scene\webgl\event\GlHoverObject.js" />
+    <Content Include="src\scene\webgl\event\GlSelectObject.js" />
+    <Content Include="src\scene\webgl\GlScene.js" />
+    <Content Include="src\scene\webgl\object\GlAxisHelper.js" />
+    <Content Include="src\scene\webgl\object\GlGridHelper.js" />
+    <Content Include="src\scene\webgl\object\GlLight.js" />
+    <Content Include="src\scene\webgl\util\GlScreenToWorld.js" />
+    <Content Include="src\scene\webgl\util\GlWorldToScreen.js" />
+    <Content Include="src\svg\element\SvgCircle.js" />
+    <Content Include="src\svg\element\SvgElement.js" />
+    <Content Include="src\svg\element\SvgEllipse.js" />
+    <Content Include="src\svg\element\SvgLine.js" />
+    <Content Include="src\svg\element\SvgPath.js" />
+    <Content Include="src\svg\element\SvgPolygon.js" />
+    <Content Include="src\svg\element\SvgPolyline.js" />
+    <Content Include="src\svg\element\SvgRect.js" />
+    <Content Include="src\svg\SvgDom.js" />
+    <Content Include="src\svg\SvgGroup.js" />
+    <Content Include="src\ui\Container.js" />
+    <Content Include="src\ui\container\FixedContainer.js" />
+    <Content Include="src\ui\Control.js" />
+    <Content Include="src\ui\control\Accordion.js" />
+    <Content Include="src\ui\control\AccordionItem.js" />
+    <Content Include="src\ui\control\Autocomplete.js" />
+    <Content Include="src\ui\control\Button.js" />
+    <Content Include="src\ui\control\CheckBox.js" />
+    <Content Include="src\ui\control\CheckboxField.js" />
+    <Content Include="src\ui\control\CheckboxRadio.js" />
+    <Content Include="src\ui\control\ColorField.js" />
+    <Content Include="src\ui\control\ColorPicker.js" />
+    <Content Include="src\ui\control\Controlgroup.js" />
+    <Content Include="src\ui\control\DateField.js" />
+    <Content Include="src\ui\control\Datepicker.js" />
+    <Content Include="src\ui\control\Dialog.js" />
+    <Content Include="src\ui\control\Fieldset.js" />
+    <Content Include="src\ui\control\GridPanel.js" />
+    <Content Include="src\ui\control\List.js" />
+    <Content Include="src\ui\control\Menu.js" />
+    <Content Include="src\ui\control\MenuItem.js" />
+    <Content Include="src\ui\control\NumberField.js" />
+    <Content Include="src\ui\control\ProgressBar.js" />
+    <Content Include="src\ui\control\RangeField.js" />
+    <Content Include="src\ui\control\Rect.js" />
+    <Content Include="src\ui\control\SelectMenu.js" />
+    <Content Include="src\ui\control\SelectMenuItem.js" />
+    <Content Include="src\ui\control\Slider.js" />
+    <Content Include="src\ui\control\Spinner.js" />
+    <Content Include="src\ui\control\TabItem.js" />
+    <Content Include="src\ui\control\TabPanel.js" />
+    <Content Include="src\ui\control\TextField.js" />
+    <Content Include="src\ui\control\Tooltip.js" />
+    <Content Include="src\ui\control\Tree.js" />
+    <Content Include="src\ui\Interaction.js" />
+    <Content Include="src\ui\interaction\Draggable.js" />
+    <Content Include="src\ui\interaction\Droppable.js" />
+    <Content Include="src\ui\interaction\Resizable.js" />
+    <Content Include="src\ui\interaction\Selectable.js" />
+    <Content Include="src\ui\interaction\Sortable.js" />
+    <Content Include="src\ui\Layout.js" />
+    <Content Include="src\ui\layout\BorderLayout.js" />
+    <Content Include="src\ui\layout\CenterLayout.js" />
+    <Content Include="src\ui\layout\FormLayout.js" />
+    <Content Include="src\ui\layout\HBoxLayout.js" />
+    <Content Include="src\ui\layout\TableLayout.js" />
+    <Content Include="src\ui\layout\VBoxLayout.js" />
+    <Content Include="src\ui\UiHelper.js" />
+    <Content Include="src\ui\UiStyler.js" />
+    <Content Include="thirdparty\ammo.js" />
+    <Content Include="thirdparty\AnimationClipCreator.js" />
+    <Content Include="thirdparty\animation\CCDIKSolver.js" />
+    <Content Include="thirdparty\animation\MMDPhysics.js" />
+    <Content Include="thirdparty\BlendCharacter.js" />
+    <Content Include="thirdparty\BlendCharacterGui.js" />
+    <Content Include="thirdparty\BufferGeometryUtils.js" />
+    <Content Include="thirdparty\cameras\CinematicCamera.js" />
+    <Content Include="thirdparty\cameras\CombinedCamera.js" />
+    <Content Include="thirdparty\Car.js" />
+    <Content Include="thirdparty\Cloth.js" />
+    <Content Include="thirdparty\controls\DeviceOrientationControls.js" />
+    <Content Include="thirdparty\controls\DragControls.js" />
+    <Content Include="thirdparty\controls\EditorControls.js" />
+    <Content Include="thirdparty\controls\FirstPersonControls.js" />
+    <Content Include="thirdparty\controls\FlyControls.js" />
+    <Content Include="thirdparty\controls\OrbitControls.js" />
+    <Content Include="thirdparty\controls\OrthographicTrackballControls.js" />
+    <Content Include="thirdparty\controls\PointerLockControls.js" />
+    <Content Include="thirdparty\controls\TrackballControls.js" />
+    <Content Include="thirdparty\controls\TransformControls.js" />
+    <Content Include="thirdparty\controls\VRControls.js" />
+    <Content Include="thirdparty\ConvexObjectBreaker.js" />
+    <Content Include="thirdparty\crossfade\gui.js" />
+    <Content Include="thirdparty\crossfade\scenes.js" />
+    <Content Include="thirdparty\crossfade\transition.js" />
+    <Content Include="thirdparty\CurveExtras.js" />
+    <Content Include="thirdparty\curves\NURBSCurve.js" />
+    <Content Include="thirdparty\curves\NURBSSurface.js" />
+    <Content Include="thirdparty\curves\NURBSUtils.js" />
+    <Content Include="thirdparty\d3-hexbin.js" />
+    <Content Include="thirdparty\d3-hexbin.min.js" />
+    <Content Include="thirdparty\d3.js" />
+    <Content Include="thirdparty\d3.min.js" />
+    <Content Include="thirdparty\Detector.js" />
+    <Content Include="thirdparty\effects\AnaglyphEffect.js" />
+    <Content Include="thirdparty\effects\AsciiEffect.js" />
+    <Content Include="thirdparty\effects\OutlineEffect.js" />
+    <Content Include="thirdparty\effects\ParallaxBarrierEffect.js" />
+    <Content Include="thirdparty\effects\PeppersGhostEffect.js" />
+    <Content Include="thirdparty\effects\StereoEffect.js" />
+    <Content Include="thirdparty\effects\VREffect.js" />
+    <Content Include="thirdparty\evol-colorpicker.js" />
+    <Content Include="thirdparty\evol-colorpicker.min.js" />
+    <Content Include="thirdparty\exporters\MMDExporter.js" />
+    <Content Include="thirdparty\exporters\OBJExporter.js" />
+    <Content Include="thirdparty\exporters\STLBinaryExporter.js" />
+    <Content Include="thirdparty\exporters\STLExporter.js" />
+    <Content Include="thirdparty\exporters\TypedGeometryExporter.js" />
+    <Content Include="thirdparty\geometries\ConvexGeometry.js" />
+    <Content Include="thirdparty\geometries\DecalGeometry.js" />
+    <Content Include="thirdparty\geometries\hilbert2D.js" />
+    <Content Include="thirdparty\geometries\hilbert3D.js" />
+    <Content Include="thirdparty\geometries\TeapotBufferGeometry.js" />
+    <Content Include="thirdparty\glmatrix\gl-matrix-min.js" />
+    <Content Include="thirdparty\glmatrix\gl-matrix.js" />
+    <Content Include="thirdparty\GPUComputationRenderer.js" />
+    <Content Include="thirdparty\GPUParticleSystem.js" />
+    <Content Include="thirdparty\Gyroscope.js" />
+    <Content Include="thirdparty\ImprovedNoise.js" />
+    <Content Include="thirdparty\jqGrid\css\ui.jqgrid-bootstrap-ui.css" />
+    <Content Include="thirdparty\jqGrid\css\ui.jqgrid-bootstrap.css" />
+    <Content Include="thirdparty\jqGrid\css\ui.jqgrid-bootstrap4.css" />
+    <Content Include="thirdparty\jqGrid\css\ui.jqgrid.css" />
+    <Content Include="thirdparty\jqGrid\js\Changes.txt" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-ar.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-bg.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-ca.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-cn.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-cs.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-de.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-dk.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-el.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-en.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-es.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-fa.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-fi.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-fr.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-gl.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-he.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-hr.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-hu.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-id.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-is.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-it.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-ja.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-kr.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-lt.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-me.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-nl.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-no.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-pl.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-pt-br.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-pt.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-ro.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-ru.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-sk.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-sq.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-sr-latin.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-sr.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-sv.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-th.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-tr.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-tw.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-ua.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-uk.js" />
+    <Content Include="thirdparty\jqGrid\js\i18n\grid.locale-vi.js" />
+    <Content Include="thirdparty\jqGrid\js\install.txt" />
+    <Content Include="thirdparty\jqGrid\js\jquery-1.11.0.min.js" />
+    <Content Include="thirdparty\jqGrid\js\jquery.jqGrid.min.js" />
+    <Content Include="thirdparty\jqGrid\plugins\grid.addons.js" />
+    <Content Include="thirdparty\jqGrid\plugins\grid.postext.js" />
+    <Content Include="thirdparty\jqGrid\plugins\grid.setcolumns.js" />
+    <Content Include="thirdparty\jqGrid\plugins\jquery.contextmenu.js" />
+    <Content Include="thirdparty\jqGrid\plugins\jquery.searchFilter.js" />
+    <Content Include="thirdparty\jqGrid\plugins\jquery.tablednd.js" />
+    <Content Include="thirdparty\jqGrid\plugins\searchFilter.css" />
+    <Content Include="thirdparty\jqGrid\plugins\ui.multiselect.css" />
+    <Content Include="thirdparty\jqGrid\plugins\ui.multiselect.js" />
+    <Content Include="thirdparty\jquery-ui.js" />
+    <Content Include="thirdparty\jquery-ui.min.js" />
+    <Content Include="thirdparty\jquery.js" />
+    <Content Include="thirdparty\jquery.min.js" />
+    <Content Include="thirdparty\jquery.ztree.all.js" />
+    <Content Include="thirdparty\jquery.ztree.all.min.js" />
+    <Content Include="thirdparty\jqueryui\AUTHORS.txt" />
+    <Content Include="thirdparty\jqueryui\external\jquery\jquery.js" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_056b93_256x240.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_f5e175_256x240.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="thirdparty\jqueryui\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="thirdparty\jqueryui\index.html" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.css" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.js" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.min.css" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.min.js" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.structure.css" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.structure.min.css" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.theme.css" />
+    <Content Include="thirdparty\jqueryui\jquery-ui.theme.min.css" />
+    <Content Include="thirdparty\jqueryui\LICENSE.txt" />
+    <Content Include="thirdparty\libs\ammo.js" />
+    <Content Include="thirdparty\libs\dat.gui.js" />
+    <Content Include="thirdparty\libs\dat.gui.min.js" />
+    <Content Include="thirdparty\libs\earcut.js" />
+    <Content Include="thirdparty\libs\inflate.min.js" />
+    <Content Include="thirdparty\libs\jszip.min.js" />
+    <Content Include="thirdparty\libs\mmdparser.min.js" />
+    <Content Include="thirdparty\libs\msgpack-js.js" />
+    <Content Include="thirdparty\libs\o3dgc.js" />
+    <Content Include="thirdparty\libs\opentype.min.js" />
+    <Content Include="thirdparty\libs\pnltri.min.js" />
+    <Content Include="thirdparty\libs\stats.min.js" />
+    <Content Include="thirdparty\libs\system.min.js" />
+    <Content Include="thirdparty\libs\timeliner_gui.min.js" />
+    <Content Include="thirdparty\libs\tween.min.js" />
+    <Content Include="thirdparty\libs\zlib_and_gzip.min.js" />
+    <Content Include="thirdparty\lights\RectAreaLightUniformsLib.js" />
+    <Content Include="thirdparty\loaders\3MFLoader.js" />
+    <Content Include="thirdparty\loaders\AMFLoader.js" />
+    <Content Include="thirdparty\loaders\AssimpJSONLoader.js" />
+    <Content Include="thirdparty\loaders\AssimpLoader.js" />
+    <Content Include="thirdparty\loaders\AWDLoader.js" />
+    <Content Include="thirdparty\loaders\BabylonLoader.js" />
+    <Content Include="thirdparty\loaders\BinaryLoader.js" />
+    <Content Include="thirdparty\loaders\BVHLoader.js" />
+    <Content Include="thirdparty\loaders\ColladaLoader.js" />
+    <Content Include="thirdparty\loaders\ColladaLoader2.js" />
+    <Content Include="thirdparty\loaders\collada\Animation.js" />
+    <Content Include="thirdparty\loaders\collada\AnimationHandler.js" />
+    <Content Include="thirdparty\loaders\collada\KeyFrameAnimation.js" />
+    <Content Include="thirdparty\loaders\ctm\ctm.js" />
+    <Content Include="thirdparty\loaders\ctm\CTMLoader.js" />
+    <Content Include="thirdparty\loaders\ctm\CTMWorker.js" />
+    <Content Include="thirdparty\loaders\ctm\license\js-lzma.txt" />
+    <Content Include="thirdparty\loaders\ctm\license\js-openctm.txt" />
+    <Content Include="thirdparty\loaders\ctm\license\OpenCTM.txt" />
+    <Content Include="thirdparty\loaders\ctm\lzma.js" />
+    <Content Include="thirdparty\loaders\DDSLoader.js" />
+    <Content Include="thirdparty\loaders\deprecated\SceneLoader.js" />
+    <Content Include="thirdparty\loaders\FBXLoader.js" />
+    <Content Include="thirdparty\loaders\FBXLoader2.js" />
+    <Content Include="thirdparty\loaders\GLTFLoader.js" />
+    <Content Include="thirdparty\loaders\HDRCubeTextureLoader.js" />
+    <Content Include="thirdparty\loaders\KMZLoader.js" />
+    <Content Include="thirdparty\loaders\MD2Loader.js" />
+    <Content Include="thirdparty\loaders\MMDLoader.js" />
+    <Content Include="thirdparty\loaders\MTLLoader.js" />
+    <Content Include="thirdparty\loaders\NRRDLoader.js" />
+    <Content Include="thirdparty\loaders\OBJLoader.js" />
+    <Content Include="thirdparty\loaders\PCDLoader.js" />
+    <Content Include="thirdparty\loaders\PDBLoader.js" />
+    <Content Include="thirdparty\loaders\PlayCanvasLoader.js" />
+    <Content Include="thirdparty\loaders\PLYLoader.js" />
+    <Content Include="thirdparty\loaders\PVRLoader.js" />
+    <Content Include="thirdparty\loaders\RGBELoader.js" />
+    <Content Include="thirdparty\loaders\sea3d\o3dgc\SEA3DGC.js" />
+    <Content Include="thirdparty\loaders\sea3d\physics\SEA3DAmmo.js" />
+    <Content Include="thirdparty\loaders\sea3d\physics\SEA3DAmmoLoader.js" />
+    <Content Include="thirdparty\loaders\sea3d\physics\SEA3DRigidBody.js" />
+    <Content Include="thirdparty\loaders\sea3d\SEA3D.js" />
+    <Content Include="thirdparty\loaders\sea3d\SEA3DDeflate.js" />
+    <Content Include="thirdparty\loaders\sea3d\SEA3DLegacy.js" />
+    <Content Include="thirdparty\loaders\sea3d\SEA3DLoader.js" />
+    <Content Include="thirdparty\loaders\sea3d\SEA3DLZMA.js" />
+    <Content Include="thirdparty\loaders\STLLoader.js" />
+    <Content Include="thirdparty\loaders\SVGLoader.js" />
+    <Content Include="thirdparty\loaders\TGALoader.js" />
+    <Content Include="thirdparty\loaders\TTFLoader.js" />
+    <Content Include="thirdparty\loaders\UTF8Loader.js" />
+    <Content Include="thirdparty\loaders\VRMLLoader.js" />
+    <Content Include="thirdparty\loaders\VTKLoader.js" />
+    <Content Include="thirdparty\MarchingCubes.js" />
+    <Content Include="thirdparty\math\ColorConverter.js" />
+    <Content Include="thirdparty\math\Lut.js" />
+    <Content Include="thirdparty\MD2Character.js" />
+    <Content Include="thirdparty\MD2CharacterComplex.js" />
+    <Content Include="thirdparty\Mirror.js" />
+    <Content Include="thirdparty\modifiers\BufferSubdivisionModifier.js" />
+    <Content Include="thirdparty\modifiers\ExplodeModifier.js" />
+    <Content Include="thirdparty\modifiers\SimplifyModifier.js" />
+    <Content Include="thirdparty\modifiers\SubdivisionModifier.js" />
+    <Content Include="thirdparty\modifiers\TessellateModifier.js" />
+    <Content Include="thirdparty\MorphAnimation.js" />
+    <Content Include="thirdparty\MorphAnimMesh.js" />
+    <Content Include="thirdparty\nodes\accessors\CameraNode.js" />
+    <Content Include="thirdparty\nodes\accessors\ColorsNode.js" />
+    <Content Include="thirdparty\nodes\accessors\LightNode.js" />
+    <Content Include="thirdparty\nodes\accessors\NormalNode.js" />
+    <Content Include="thirdparty\nodes\accessors\PositionNode.js" />
+    <Content Include="thirdparty\nodes\accessors\ReflectNode.js" />
+    <Content Include="thirdparty\nodes\accessors\ScreenUVNode.js" />
+    <Content Include="thirdparty\nodes\accessors\UVNode.js" />
+    <Content Include="thirdparty\nodes\AttributeNode.js" />
+    <Content Include="thirdparty\nodes\ConstNode.js" />
+    <Content Include="thirdparty\nodes\FunctionCallNode.js" />
+    <Content Include="thirdparty\nodes\FunctionNode.js" />
+    <Content Include="thirdparty\nodes\GLNode.js" />
+    <Content Include="thirdparty\nodes\InputNode.js" />
+    <Content Include="thirdparty\nodes\inputs\ColorNode.js" />
+    <Content Include="thirdparty\nodes\inputs\CubeTextureNode.js" />
+    <Content Include="thirdparty\nodes\inputs\FloatNode.js" />
+    <Content Include="thirdparty\nodes\inputs\IntNode.js" />
+    <Content Include="thirdparty\nodes\inputs\Matrix4Node.js" />
+    <Content Include="thirdparty\nodes\inputs\MirrorNode.js" />
+    <Content Include="thirdparty\nodes\inputs\ScreenNode.js" />
+    <Content Include="thirdparty\nodes\inputs\TextureNode.js" />
+    <Content Include="thirdparty\nodes\inputs\Vector2Node.js" />
+    <Content Include="thirdparty\nodes\inputs\Vector3Node.js" />
+    <Content Include="thirdparty\nodes\inputs\Vector4Node.js" />
+    <Content Include="thirdparty\nodes\materials\PhongNode.js" />
+    <Content Include="thirdparty\nodes\materials\PhongNodeMaterial.js" />
+    <Content Include="thirdparty\nodes\materials\StandardNode.js" />
+    <Content Include="thirdparty\nodes\materials\StandardNodeMaterial.js" />
+    <Content Include="thirdparty\nodes\math\Math1Node.js" />
+    <Content Include="thirdparty\nodes\math\Math2Node.js" />
+    <Content Include="thirdparty\nodes\math\Math3Node.js" />
+    <Content Include="thirdparty\nodes\math\OperatorNode.js" />
+    <Content Include="thirdparty\nodes\NodeBuilder.js" />
+    <Content Include="thirdparty\nodes\NodeLib.js" />
+    <Content Include="thirdparty\nodes\NodeMaterial.js" />
+    <Content Include="thirdparty\nodes\postprocessing\NodePass.js" />
+    <Content Include="thirdparty\nodes\RawNode.js" />
+    <Content Include="thirdparty\nodes\TempNode.js" />
+    <Content Include="thirdparty\nodes\utils\BlurNode.js" />
+    <Content Include="thirdparty\nodes\utils\BumpNode.js" />
+    <Content Include="thirdparty\nodes\utils\ColorAdjustmentNode.js" />
+    <Content Include="thirdparty\nodes\utils\JoinNode.js" />
+    <Content Include="thirdparty\nodes\utils\LuminanceNode.js" />
+    <Content Include="thirdparty\nodes\utils\NoiseNode.js" />
+    <Content Include="thirdparty\nodes\utils\NormalMapNode.js" />
+    <Content Include="thirdparty\nodes\utils\ResolutionNode.js" />
+    <Content Include="thirdparty\nodes\utils\RoughnessToBlinnExponentNode.js" />
+    <Content Include="thirdparty\nodes\utils\SwitchNode.js" />
+    <Content Include="thirdparty\nodes\utils\TimerNode.js" />
+    <Content Include="thirdparty\nodes\utils\VelocityNode.js" />
+    <Content Include="thirdparty\nodes\VarNode.js" />
+    <Content Include="thirdparty\objects\ShadowMesh.js" />
+    <Content Include="thirdparty\Ocean.js" />
+    <Content Include="thirdparty\Octree.js" />
+    <Content Include="thirdparty\pako\pako.js" />
+    <Content Include="thirdparty\pako\pako.min.js" />
+    <Content Include="thirdparty\pako\pako_deflate.js" />
+    <Content Include="thirdparty\pako\pako_deflate.min.js" />
+    <Content Include="thirdparty\pako\pako_inflate.js" />
+    <Content Include="thirdparty\pako\pako_inflate.min.js" />
+    <Content Include="thirdparty\ParametricGeometries.js" />
+    <Content Include="thirdparty\physi.js" />
+    <Content Include="thirdparty\physijs_worker.js" />
+    <Content Include="thirdparty\pmrem\PMREMCubeUVPacker.js" />
+    <Content Include="thirdparty\pmrem\PMREMGenerator.js" />
+    <Content Include="thirdparty\popper.js" />
+    <Content Include="thirdparty\popper.min.js" />
+    <Content Include="thirdparty\postprocessing\AdaptiveToneMappingPass.js" />
+    <Content Include="thirdparty\postprocessing\BloomPass.js" />
+    <Content Include="thirdparty\postprocessing\BokehPass.js" />
+    <Content Include="thirdparty\postprocessing\ClearPass.js" />
+    <Content Include="thirdparty\postprocessing\CubeTexturePass.js" />
+    <Content Include="thirdparty\postprocessing\DotScreenPass.js" />
+    <Content Include="thirdparty\postprocessing\EffectComposer.js" />
+    <Content Include="thirdparty\postprocessing\FilmPass.js" />
+    <Content Include="thirdparty\postprocessing\GlitchPass.js" />
+    <Content Include="thirdparty\postprocessing\MaskPass.js" />
+    <Content Include="thirdparty\postprocessing\OutlinePass.js" />
+    <Content Include="thirdparty\postprocessing\RenderPass.js" />
+    <Content Include="thirdparty\postprocessing\SavePass.js" />
+    <Content Include="thirdparty\postprocessing\ShaderPass.js" />
+    <Content Include="thirdparty\postprocessing\SMAAPass.js" />
+    <Content Include="thirdparty\postprocessing\SSAARenderPass.js" />
+    <Content Include="thirdparty\postprocessing\TAARenderPass.js" />
+    <Content Include="thirdparty\postprocessing\TexturePass.js" />
+    <Content Include="thirdparty\postprocessing\UnrealBloomPass.js" />
+    <Content Include="thirdparty\PRNG.js" />
+    <Content Include="thirdparty\renderers\CanvasRenderer.js" />
+    <Content Include="thirdparty\renderers\CSS2DRenderer.js" />
+    <Content Include="thirdparty\renderers\CSS3DRenderer.js" />
+    <Content Include="thirdparty\renderers\Projector.js" />
+    <Content Include="thirdparty\renderers\RaytracingRenderer.js" />
+    <Content Include="thirdparty\renderers\RaytracingWorker.js" />
+    <Content Include="thirdparty\renderers\SoftwareRenderer.js" />
+    <Content Include="thirdparty\renderers\SVGRenderer.js" />
+    <Content Include="thirdparty\renderers\WebGLDeferredRenderer.js" />
+    <Content Include="thirdparty\RollerCoaster.js" />
+    <Content Include="thirdparty\ShaderGodRays.js" />
+    <Content Include="thirdparty\ShaderSkin.js" />
+    <Content Include="thirdparty\shaders\BasicShader.js" />
+    <Content Include="thirdparty\shaders\BleachBypassShader.js" />
+    <Content Include="thirdparty\shaders\BlendShader.js" />
+    <Content Include="thirdparty\shaders\BokehShader.js" />
+    <Content Include="thirdparty\shaders\BokehShader2.js" />
+    <Content Include="thirdparty\shaders\BrightnessContrastShader.js" />
+    <Content Include="thirdparty\shaders\ColorCorrectionShader.js" />
+    <Content Include="thirdparty\shaders\ColorifyShader.js" />
+    <Content Include="thirdparty\shaders\ConvolutionShader.js" />
+    <Content Include="thirdparty\shaders\CopyShader.js" />
+    <Content Include="thirdparty\shaders\DigitalGlitch.js" />
+    <Content Include="thirdparty\shaders\DOFMipMapShader.js" />
+    <Content Include="thirdparty\shaders\DotScreenShader.js" />
+    <Content Include="thirdparty\shaders\EdgeShader.js" />
+    <Content Include="thirdparty\shaders\EdgeShader2.js" />
+    <Content Include="thirdparty\shaders\FilmShader.js" />
+    <Content Include="thirdparty\shaders\FocusShader.js" />
+    <Content Include="thirdparty\shaders\FresnelShader.js" />
+    <Content Include="thirdparty\shaders\FXAAShader.js" />
+    <Content Include="thirdparty\shaders\GammaCorrectionShader.js" />
+    <Content Include="thirdparty\shaders\HorizontalBlurShader.js" />
+    <Content Include="thirdparty\shaders\HorizontalTiltShiftShader.js" />
+    <Content Include="thirdparty\shaders\HueSaturationShader.js" />
+    <Content Include="thirdparty\shaders\KaleidoShader.js" />
+    <Content Include="thirdparty\shaders\LuminosityHighPassShader.js" />
+    <Content Include="thirdparty\shaders\LuminosityShader.js" />
+    <Content Include="thirdparty\shaders\MirrorShader.js" />
+    <Content Include="thirdparty\shaders\NormalMapShader.js" />
+    <Content Include="thirdparty\shaders\OceanShaders.js" />
+    <Content Include="thirdparty\shaders\ParallaxShader.js" />
+    <Content Include="thirdparty\shaders\RGBShiftShader.js" />
+    <Content Include="thirdparty\shaders\SepiaShader.js" />
+    <Content Include="thirdparty\shaders\SMAAShader.js" />
+    <Content Include="thirdparty\shaders\SSAOShader.js" />
+    <Content Include="thirdparty\shaders\TechnicolorShader.js" />
+    <Content Include="thirdparty\shaders\ToneMapShader.js" />
+    <Content Include="thirdparty\shaders\TriangleBlurShader.js" />
+    <Content Include="thirdparty\shaders\UnpackDepthRGBAShader.js" />
+    <Content Include="thirdparty\shaders\VerticalBlurShader.js" />
+    <Content Include="thirdparty\shaders\VerticalTiltShiftShader.js" />
+    <Content Include="thirdparty\shaders\VignetteShader.js" />
+    <Content Include="thirdparty\ShaderTerrain.js" />
+    <Content Include="thirdparty\ShaderToon.js" />
+    <Content Include="thirdparty\simplex-noise.js" />
+    <Content Include="thirdparty\SimplexNoise.js" />
+    <Content Include="thirdparty\SkyShader.js" />
+    <Content Include="thirdparty\three.js" />
+    <Content Include="thirdparty\three.min.js" />
+    <Content Include="thirdparty\TimelinerController.js" />
+    <Content Include="thirdparty\tween.js" />
+    <Content Include="thirdparty\TypedArrayUtils.js" />
+    <Content Include="thirdparty\UCSCharacter.js" />
+    <Content Include="thirdparty\utils\GeometryUtils.js" />
+    <Content Include="thirdparty\utils\ImageUtils.js" />
+    <Content Include="thirdparty\utils\ShadowMapViewer.js" />
+    <Content Include="thirdparty\utils\UVsDebug.js" />
+    <Content Include="thirdparty\Volume.js" />
+    <Content Include="thirdparty\VolumeSlice.js" />
+    <Content Include="thirdparty\VolumetricFire\VolumetricFire.js" />
+    <Content Include="thirdparty\vr\PaintViveController.js" />
+    <Content Include="thirdparty\vr\ViveController.js" />
+    <Content Include="thirdparty\vr\WebVR.js" />
+    <Content Include="thirdparty\WaterShader.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dist\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53216</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53216/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

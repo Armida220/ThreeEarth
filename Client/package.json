@@ -1,0 +1,38 @@
+{
+  "name": "threeearth",
+  "version": "0.0.1",
+  "description": "A simple 3D gis.",
+  "main": "rollup.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build-js": "rollup -c",
+    "es6to2015": "babel .\\dist\\ThreeEarth.js -o .\\dist\\ThreeEarth.js",
+    "compress-js": " uglifyjs .\\dist\\ThreeEarth.js -m -o .\\dist\\ThreeEarth.min.js",
+    "build": "npm run build-js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tengge1/ThreeEarth.git"
+  },
+  "keywords": [
+    "threeearth",
+    "gis",
+    "3d"
+  ],
+  "author": "tengge",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tengge1/ThreeEarth/issues"
+  },
+  "homepage": "https://github.com/tengge1/ThreeEarth#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "rollup": "^0.54.1",
+    "uglify-js": "^3.3.7"
+  }
+}

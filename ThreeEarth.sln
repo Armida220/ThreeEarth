@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{4DF9A124-A407-4B32-9D4C-40F286E063C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{C6D51B87-ADEC-448B-8453-1F49CD30CC2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{68E4D28C-3B4C-493E-B772-2C424CB34908}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+		Tools\安装MongoDB服务.txt = Tools\安装MongoDB服务.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DF9A124-A407-4B32-9D4C-40F286E063C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF9A124-A407-4B32-9D4C-40F286E063C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF9A124-A407-4B32-9D4C-40F286E063C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF9A124-A407-4B32-9D4C-40F286E063C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D51B87-ADEC-448B-8453-1F49CD30CC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D51B87-ADEC-448B-8453-1F49CD30CC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D51B87-ADEC-448B-8453-1F49CD30CC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D51B87-ADEC-448B-8453-1F49CD30CC2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {844CCA3B-8B49-4BAE-BDE6-8E2E7304CE15}
+	EndGlobalSection
+EndGlobal

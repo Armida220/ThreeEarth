@@ -1,0 +1,1 @@
+.\mongod --logpath D:\GIS\MongoDB\logs\logs.txt --logappend --install --serviceName MongoDB --serviceDisplayName MongoDB --dbpath D:\GIS\MongoDB\db --directoryperdb
