@@ -5,7 +5,7 @@
 ## 核心技术
 
 * Cesium
-* jQuery-ui
+* jQuery UI
 * zTree
 * jqGrid
 * MongoDB
