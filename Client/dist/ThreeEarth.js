@@ -25,7 +25,7 @@
 	    'render',
 	    'applicationStart',
 
-	    // ./editor/menu/NavMenu.js
+	    // ../editor/menu/NavMenu.js
 	    'newScene',
 	    'openScene',
 	    'saveScene',
@@ -37,30 +37,35 @@
 	    'mapPropertyConfig',
 	    'environmentSetting',
 
+	    'addPoint',
+	    'addPolyline',
+	    'addPolygon',
+	    'addRectangle',
+	    'addEllipse',
+	    'addCorridor',
+	    'addLabel',
+	    'addBox',
+	    'addCylinder',
+	    'addTube',
+	    'addEllipsoid',
+	    'addWall',
+
 	    'debug',
 	    'play',
 
 	    'document',
 	    'about',
 
-	    // ./scene/webgl/GlScene.js
-	    'beforeAnimate',
-	    'onAnimate',
-
-	    // ./scene/webgl/control/GlGUI.js
-	    'translateObject',
-	    'rotateObject',
-	    'scaleObject',
-
-	    // ./scene/webgl/event/GlHoverObject.js
-	    'hoverObject',
-
-	    // ./scene/webgl/event/GlSelectObject.js
-	    'selectObject',
-	    'unselectObject',
-
-	    // ./lol/Model.js
-	    'loadMesh',
+	    // ../map/Map.js
+	    'click',
+	    'contextmenu',
+	    'dblclick',
+	    'keydown',
+	    'keyup',
+	    'mousedown',
+	    'mousemove',
+	    'mouseup',
+	    'mousewheel'
 	];
 
 	var noop = {value: function() {}};
@@ -174,7 +179,11 @@
 	};
 
 	CustomEvent.prototype.call = function (eventName) {
-	    this.dispatch.call.apply(this.dispatch, arguments);
+	    var args = [arguments[0], this];
+	    for (var i = 1; i < arguments.length; i++) {
+	        args[i + 1] = arguments[i];
+	    }
+	    this.dispatch.call.apply(this.dispatch, args);
 	};
 
 	CustomEvent.prototype.on = function (eventName, callback) {
@@ -1662,6 +1671,45 @@
 	        text: '环境设置'
 	    }]
 	}, {
+	    text: '物体',
+	    children: [{
+	        id: 'addPoint',
+	        text: '点'
+	    }, {
+	        id: 'addPolyline',
+	        text: '折线'
+	    }, {
+	        id: 'addPolygon',
+	        text: '多边形'
+	    }, {
+	        id: 'addRectangle',
+	        text: '长方形'
+	    }, {
+	        id: 'addEllipse',
+	        text: '椭圆'
+	    }, {
+	        id: 'addCorridor',
+	        text: '走廊'
+	    }, {
+	        id: 'addLabel',
+	        text: '标签'
+	    }, {
+	        id: 'addBox',
+	        text: '正方体'
+	    }, {
+	        id: 'addCylinder',
+	        text: '圆柱体'
+	    }, {
+	        id: 'addTube',
+	        text: '管道'
+	    }, {
+	        id: 'addEllipsoid',
+	        text: '椭球体'
+	    }, {
+	        id: 'addWall',
+	        text: '墙'
+	    }]
+	}, {
 	    text: '运行',
 	    children: [{
 	        id: 'debug',
@@ -1788,6 +1836,7 @@
 	function Map(options) {
 	    Control.call(this, options);
 	    this.app = options.app;
+	    this.app.map = this;
 	    Cesium.BingMapsApi.defaultKey = Options.bingMapKey;
 	}
 
@@ -1825,6 +1874,42 @@
 	    this.app.viewer = this.viewer;
 	    this.app.viewer.camera.setView({
 	        destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
+	    });
+	    this.addEventListeners();
+	};
+
+	Map.prototype.stop = function () {
+
+	};
+
+	Map.prototype.addEventListeners = function () {
+	    var _this = this;
+	    this.viewer.canvas.addEventListener('click', function (evt) {
+	        _this.app.call('click', evt);
+	    });
+	    this.viewer.canvas.addEventListener('contextmenu', function (evt) {
+	        _this.app.call('contextmenu', evt);
+	    });
+	    this.viewer.canvas.addEventListener('dblclick', function (evt) {
+	        _this.app.call('dblclick', evt);
+	    });
+	    this.viewer.canvas.addEventListener('keydown', function (evt) {
+	        _this.app.call('keydown', evt);
+	    });
+	    this.viewer.canvas.addEventListener('keyup', function (evt) {
+	        _this.app.call('keyup', evt);
+	    });
+	    this.viewer.canvas.addEventListener('mousedown', function (evt) {
+	        _this.app.call('mousedown', evt);
+	    });
+	    this.viewer.canvas.addEventListener('mousemove', function (evt) {
+	        _this.app.call('mousemove', evt);
+	    });
+	    this.viewer.canvas.addEventListener('mouseup', function (evt) {
+	        _this.app.call('mouseup', evt);
+	    });
+	    this.viewer.canvas.addEventListener('mousewheel', function () {
+	        _this.app.call('mousewheel', evt);
 	    });
 	};
 
@@ -2211,11 +2296,32 @@
 	    this.win.show();
 	};
 
+	function AddPointCommand(options) {
+	    BaseCommand.call(this, options);
+	}
+
+	AddPointCommand.prototype = Object.create(BaseCommand.prototype);
+	AddPointCommand.prototype.constructor = AddPointCommand;
+
+	AddPointCommand.prototype.start = function () {
+	    var _this = this;
+	    this.app.on('click', function (evt) {
+	        _this.click(evt);
+	    });
+	};
+
+	AddPointCommand.prototype.click = function (evt) {
+	    debugger
+	};
+
 	function CommandDispatcher(options) {
 	    options = options || {};
 	    this.app = options.app || null;
+
+	    var params = { app: this.app };
 	    this.commands = [
-	        new OpenSceneCommand({ app: this.app }),
+	        new OpenSceneCommand(params),
+	        new AddPointCommand(params),
 	    ];
 	}
 

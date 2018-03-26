@@ -4,6 +4,7 @@ import { Options } from '../Options';
 function Map(options) {
     Control.call(this, options);
     this.app = options.app;
+    this.app.map = this;
     Cesium.BingMapsApi.defaultKey = Options.bingMapKey;
 }
 
@@ -41,6 +42,42 @@ Map.prototype.start = function () {
     this.app.viewer = this.viewer;
     this.app.viewer.camera.setView({
         destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
+    });
+    this.addEventListeners();
+};
+
+Map.prototype.stop = function () {
+
+};
+
+Map.prototype.addEventListeners = function () {
+    var _this = this;
+    this.viewer.canvas.addEventListener('click', function (evt) {
+        _this.app.call('click', evt)
+    });
+    this.viewer.canvas.addEventListener('contextmenu', function (evt) {
+        _this.app.call('contextmenu', evt)
+    });
+    this.viewer.canvas.addEventListener('dblclick', function (evt) {
+        _this.app.call('dblclick', evt)
+    });
+    this.viewer.canvas.addEventListener('keydown', function (evt) {
+        _this.app.call('keydown', evt)
+    });
+    this.viewer.canvas.addEventListener('keyup', function (evt) {
+        _this.app.call('keyup', evt)
+    });
+    this.viewer.canvas.addEventListener('mousedown', function (evt) {
+        _this.app.call('mousedown', evt)
+    });
+    this.viewer.canvas.addEventListener('mousemove', function (evt) {
+        _this.app.call('mousemove', evt)
+    });
+    this.viewer.canvas.addEventListener('mouseup', function (evt) {
+        _this.app.call('mouseup', evt)
+    });
+    this.viewer.canvas.addEventListener('mousewheel', function () {
+        _this.app.call('mousewheel', evt)
     });
 };
 

@@ -32,6 +32,45 @@ var NavMenuNames = [{
         text: '环境设置'
     }]
 }, {
+    text: '物体',
+    children: [{
+        id: 'addPoint',
+        text: '点'
+    }, {
+        id: 'addPolyline',
+        text: '折线'
+    }, {
+        id: 'addPolygon',
+        text: '多边形'
+    }, {
+        id: 'addRectangle',
+        text: '长方形'
+    }, {
+        id: 'addEllipse',
+        text: '椭圆'
+    }, {
+        id: 'addCorridor',
+        text: '走廊'
+    }, {
+        id: 'addLabel',
+        text: '标签'
+    }, {
+        id: 'addBox',
+        text: '正方体'
+    }, {
+        id: 'addCylinder',
+        text: '圆柱体'
+    }, {
+        id: 'addTube',
+        text: '管道'
+    }, {
+        id: 'addEllipsoid',
+        text: '椭球体'
+    }, {
+        id: 'addWall',
+        text: '墙'
+    }]
+}, {
     text: '运行',
     children: [{
         id: 'debug',

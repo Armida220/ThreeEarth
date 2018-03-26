@@ -30,7 +30,11 @@ CustomEvent.prototype.stop = function () {
 };
 
 CustomEvent.prototype.call = function (eventName) {
-    this.dispatch.call.apply(this.dispatch, arguments);
+    var args = [arguments[0], this];
+    for (var i = 1; i < arguments.length; i++) {
+        args[i + 1] = arguments[i];
+    }
+    this.dispatch.call.apply(this.dispatch, args);
 };
 
 CustomEvent.prototype.on = function (eventName, callback) {
