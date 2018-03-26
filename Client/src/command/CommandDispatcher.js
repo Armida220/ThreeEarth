@@ -1,6 +1,7 @@
 import { OpenSceneCommand } from './scene/OpenSceneCommand';
 import { AddPointCommand } from './object/AddPointCommand';
 import { AddPolylineCommand } from './object/AddPolylineCommand';
+import { AddPolygonCommand } from './object/AddPolygonCommand';
 
 function CommandDispatcher(options) {
     options = options || {};
@@ -12,6 +13,7 @@ function CommandDispatcher(options) {
 
         new AddPointCommand(params),
         new AddPolylineCommand(params),
+        new AddPolygonCommand(params),
     ];
 }
 
