@@ -2393,32 +2393,48 @@
 	AddPolylineCommand.prototype.run = function () {
 	    var _this = this;
 	    this.app.on('click.AddPolylineCommand', function (evt) {
-	        _this.click(evt);
+	        _this.onClick(evt);
+	    });
+	    this.app.on('mousemove.AddPolylineCommand', function (evt) {
+	        _this.onMouseMove(evt);
 	    });
 	    this.app.on('contextmenu.AddPolylineCommand', function (evt) {
 	        _this.onContextMenu(evt);
 	    });
 	};
 
-	AddPolylineCommand.prototype.click = function (evt) {
+	AddPolylineCommand.prototype.onClick = function (evt) {
 	    var world = this.app.screenToWorld(evt.offsetX, evt.offsetY);
 	    if (this.polyline == null) {
 	        this.polyline = this.app.viewer.entities.add({
 	            name: 'polyline' + ID$5--,
 	            polyline: {
-	                hierarchy: [
+	                positions: [
+	                    world,
 	                    world
 	                ],
-	                height: 0,
-	                material: Cesium.Color.RED.withAlpha(0.5),
-	                outline: true,
+	                width: 5,
+	                material: Cesium.Color.RED,
+	                outlineWidth: 3,
 	                outlineColor: Cesium.Color.BLACK
 	            }
 	        });
 	    } else {
-	        debugger
+	        var positions = this.polyline.polyline.positions.getValue();
+	        positions.splice(positions.length - 1, 0, world);
+	        this.polyline.polyline.positions.setValue(positions);
+	        this.polyline.polyline.show = true;
 	    }
+	};
 
+	AddPolylineCommand.prototype.onMouseMove = function (evt) {
+	    var world = this.app.screenToWorld(evt.offsetX, evt.offsetY);
+	    if (this.polyline != null) {
+	        var positions = this.polyline.polyline.positions.getValue();
+	        positions.splice(positions.length - 1, 1, world);
+	        this.polyline.polyline.positions.setValue(positions);
+	        this.polyline.polyline.show = true;
+	    }
 	};
 
 	AddPolylineCommand.prototype.onContextMenu = function (evt) {
