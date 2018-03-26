@@ -5,6 +5,7 @@ function MenuItem(options) {
     options = options || {};
     this.id = options.id || 'menuitem' + MenuItem.index--;
     this.text = options.text || 'Menu Item';
+    this.event = options.event || null;
     this.cls = options.cls || null;
     this.subCls = options.subCls || null;
     this.children = options.children || [];
@@ -17,6 +18,7 @@ MenuItem.prototype.render = function () {
     this.el.li = document.createElement('li');
     this.el.li.setAttribute('id', this.id);
     this.el.li.className = this.cls;
+    this.el.li.event = this.event;
     this.el.div = document.createElement('div');
     this.el.div.innerHTML = this.text;
     this.el.li.appendChild(this.el.div);

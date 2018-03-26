@@ -1262,6 +1262,7 @@
 	    options = options || {};
 	    this.id = options.id || 'menuitem' + MenuItem.index--;
 	    this.text = options.text || 'Menu Item';
+	    this.event = options.event || null;
 	    this.cls = options.cls || null;
 	    this.subCls = options.subCls || null;
 	    this.children = options.children || [];
@@ -1274,6 +1275,7 @@
 	    this.el.li = document.createElement('li');
 	    this.el.li.setAttribute('id', this.id);
 	    this.el.li.className = this.cls;
+	    this.el.li.event = this.event;
 	    this.el.div = document.createElement('div');
 	    this.el.div.innerHTML = this.text;
 	    this.el.li.appendChild(this.el.div);
@@ -1640,98 +1642,77 @@
 	var NavMenuNames = [{
 	    text: '场景',
 	    children: [{
-	        id: 'newScene',
 	        text: '新建场景',
+	        event: 'newScene',
 	    }, {
-	        id: 'openScene',
-	        text: '打开场景'
+	        text: '打开场景',
+	        event: 'openScene',
 	    }, {
-	        id: 'saveScene',
 	        text: '保存场景',
-	    }, {
-	        id: 'quitEditor',
-	        text: '退出'
-	    }]
-	}, {
-	    text: '编辑',
-	    children: [{
-	        id: 'undo',
-	        text: '取消'
-	    }, {
-	        id: 'redo',
-	        text: '重做'
+	        event: 'saveScene',
 	    }]
 	}, {
 	    text: '配置',
 	    children: [{
-	        id: 'mapPropertyConfig',
-	        text: '地理要素'
+	        text: '地理要素',
+	        event: 'mapPropertyConfig'
 	    }, {
-	        id: 'environmentSetting',
-	        text: '环境设置'
+	        text: '环境设置',
+	        event: 'environmentSetting',
 	    }]
 	}, {
 	    text: '物体',
 	    children: [{
-	        id: 'addPoint',
-	        text: '点'
+	        text: '点',
+	        event: 'addPoint',
 	    }, {
-	        id: 'addPolyline',
-	        text: '折线'
+	        text: '折线',
+	        event: 'addPolyline',
 	    }, {
-	        id: 'addPolygon',
-	        text: '多边形'
+	        text: '多边形',
+	        event: 'addPolygon',
 	    }, {
-	        id: 'addRectangle',
-	        text: '长方形'
+	        text: '长方形',
+	        event: 'addRectangle',
 	    }, {
-	        id: 'addEllipse',
-	        text: '椭圆'
+	        text: '椭圆',
+	        event: 'addEllipse',
 	    }, {
-	        id: 'addCorridor',
-	        text: '走廊'
+	        text: '走廊',
+	        event: 'addCorridor',
 	    }, {
-	        id: 'addLabel',
-	        text: '标签'
+	        text: '标签',
+	        event: 'addLabel',
 	    }, {
-	        id: 'addBox',
-	        text: '正方体'
+	        text: '正方体',
+	        event: 'addBox',
 	    }, {
-	        id: 'addCylinder',
-	        text: '圆柱体'
+	        text: '圆柱体',
+	        event: 'addCylinder',
 	    }, {
-	        id: 'addTube',
-	        text: '管道'
+	        text: '管道',
+	        event: 'addTube',
 	    }, {
-	        id: 'addEllipsoid',
-	        text: '椭球体'
+	        text: '椭球体',
+	        event: 'addEllipsoid',
 	    }, {
-	        id: 'addWall',
-	        text: '墙'
-	    }]
-	}, {
-	    text: '运行',
-	    children: [{
-	        id: 'debug',
-	        text: '调试'
-	    }, {
-	        id: 'play',
-	        text: '运行'
+	        text: '墙',
+	        event: 'addWall',
 	    }]
 	}, {
 	    text: '工具',
 	    children: [{
-	        id: 'refreshMongo',
-	        text: '更新Mongo'
+	        text: '更新Mongo',
+	        event: 'refreshMongo',
 	    }]
 	}, {
 	    text: '帮助',
 	    children: [{
-	        id: 'document',
-	        text: '文档'
+	        text: '文档',
+	        event: 'document',
 	    }, {
-	        id: 'about',
-	        text: '关于'
+	        text: '关于',
+	        event: 'about',
 	    }]
 	}];
 
@@ -1748,15 +1729,15 @@
 	    var _this = this;
 	    NavMenuNames.forEach(function (n) {
 	        var item = new MenuItem({
-	            id: n.id,
 	            text: n.text,
+	            event: n.event,
 	            children: []
 	        });
 	        if (n.children) {
 	            n.children.forEach(function (m) {
 	                var subitem = new MenuItem({
-	                    id: m.id,
-	                    text: m.text
+	                    text: m.text,
+	                    event: m.event
 	                });
 	                item.children.push(subitem);
 	            });
@@ -1779,9 +1760,9 @@
 
 	    var _this = this;
 	    this.menu.on('select', function (event, ui) {
-	        var id = ui.item[0].id;
-	        if (id != null) {
-	            _this.app.event.call(id);
+	        var event = ui.item[0].event;
+	        if (event != null) {
+	            _this.app.event.call(event);
 	            _this.menu.collapseAll();
 	        }
 	    });
@@ -1875,6 +1856,25 @@
 	    this.app.viewer.camera.setView({
 	        destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
 	    });
+	    var _this = this;
+	    this.app.lonlatToWorld = function (lon, lat, alt) {
+	        return _this.lonlatToWorld(lon, lat, alt);
+	    };
+	    this.app.worldToLonlat = function (x, y, z) {
+	        return _this.worldToLonlat(x, y, z);
+	    };
+	    this.app.toRadian = function (degrees) {
+	        return _this.toRadian(degrees);
+	    };
+	    this.app.toDegree = function (radians) {
+	        return _this.toDegree(radians);
+	    };
+	    this.app.screenToWorld = function (x, y) {
+	        return _this.screenToWorld(x, y);
+	    };
+	    this.app.worldToScreen = function (cartesian3) {
+	        return _this.worldToLonlat(cartesian3);
+	    };
 	    this.addEventListeners();
 	};
 
@@ -1911,6 +1911,40 @@
 	    this.viewer.canvas.addEventListener('mousewheel', function () {
 	        _this.app.call('mousewheel', evt);
 	    });
+	};
+
+	Map.prototype.lonlatToWorld = function (lon, lat, alt) {
+	    alt = alt || 0;
+	    var ellipsoid = this.viewer.scene.globe.ellipsoid;
+	    var cartographic = Cesium.Cartographic.fromDegrees(lon, lat, alt);
+	    return ellipsoid.cartographicToCartesian(cartographic);
+	};
+
+	Map.prototype.worldToLonlat = function (x, y, z) {
+	    var ellipsoid = this.viewer.scene.globe.ellipsoid;
+	    var cartesian3 = new Cesium.cartesian3(x, y, z);
+	    var cartographic = ellipsoid.cartesianToCartographic(cartesian3);
+	    var lon = Cesium.Math.toDegrees(cartograhpinc.longitude);
+	    var lat = Cesium.Math.toDegrees(cartograhphic.latitude);
+	    var alt = cartographic.height;
+	    return [lon, lat, alt];
+	};
+
+	Map.prototype.toRadian = function (degrees) {
+	    return Cesium.CesiumMath.toRadians(degrees);
+	};
+
+	Map.prototype.toDegree = function (radians) {
+	    return Cesium.CesiumMath.toDegrees(radians);
+	};
+
+	Map.prototype.screenToWorld = function (x, y) {
+	    var pick = new Cesium.Cartesian2(x, y);
+	    return this.viewer.scene.globe.pick(this.viewer.camera.getPickRay(pick), this.viewer.scene);
+	};
+
+	Map.prototype.worldToScreen = function (cartesian3) {
+	    return Cesium.SceneTransforms.wgs84ToWindowCoordinates(scene, cartesian3);
 	};
 
 	function GlScene(options) {
@@ -2296,6 +2330,8 @@
 	    this.win.show();
 	};
 
+	var ID$4 = -1;
+
 	function AddPointCommand(options) {
 	    BaseCommand.call(this, options);
 	}
@@ -2305,13 +2341,89 @@
 
 	AddPointCommand.prototype.start = function () {
 	    var _this = this;
-	    this.app.on('click', function (evt) {
+	    this.app.on('addPoint', function () {
+	        _this.run();
+	    });
+	};
+
+	AddPointCommand.prototype.run = function () {
+	    var _this = this;
+	    this.app.on('click.AddPointCommand', function (evt) {
 	        _this.click(evt);
+	    });
+	    this.app.on('contextmenu.AddPointCommand', function (evt) {
+	        _this.onContextMenu(evt);
 	    });
 	};
 
 	AddPointCommand.prototype.click = function (evt) {
-	    debugger
+	    var world = this.app.screenToWorld(evt.offsetX, evt.offsetY);
+	    var point = this.app.viewer.entities.add({
+	        name: 'Point' + ID$4--,
+	        position: world,
+	        point: {
+	            pixelSize: 5,
+	            color: Cesium.Color.RED,
+	            outlineColor: Cesium.Color.WHITE,
+	            outlineWidth: 2
+	        }
+	    });
+	};
+
+	AddPointCommand.prototype.onContextMenu = function (evt) {
+	    this.app.on('click.AddPointCommand', null);
+	};
+
+	var ID$5 = -1;
+
+	function AddPolylineCommand(options) {
+	    BaseCommand.call(this, options);
+	}
+
+	AddPolylineCommand.prototype = Object.create(BaseCommand.prototype);
+	AddPolylineCommand.prototype.constructor = AddPolylineCommand;
+
+	AddPolylineCommand.prototype.start = function () {
+	    var _this = this;
+	    this.app.on('addPolyline', function () {
+	        _this.run();
+	    });
+	};
+
+	AddPolylineCommand.prototype.run = function () {
+	    var _this = this;
+	    this.app.on('click.AddPolylineCommand', function (evt) {
+	        _this.click(evt);
+	    });
+	    this.app.on('contextmenu.AddPolylineCommand', function (evt) {
+	        _this.onContextMenu(evt);
+	    });
+	};
+
+	AddPolylineCommand.prototype.click = function (evt) {
+	    var world = this.app.screenToWorld(evt.offsetX, evt.offsetY);
+	    if (this.polyline == null) {
+	        this.polyline = this.app.viewer.entities.add({
+	            name: 'polyline' + ID$5--,
+	            polyline: {
+	                hierarchy: [
+	                    world
+	                ],
+	                height: 0,
+	                material: Cesium.Color.RED.withAlpha(0.5),
+	                outline: true,
+	                outlineColor: Cesium.Color.BLACK
+	            }
+	        });
+	    } else {
+	        debugger
+	    }
+
+	};
+
+	AddPolylineCommand.prototype.onContextMenu = function (evt) {
+	    this.app.on('click.AddPolylineCommand', null);
+	    this.polyline = null;
 	};
 
 	function CommandDispatcher(options) {
@@ -2321,7 +2433,9 @@
 	    var params = { app: this.app };
 	    this.commands = [
 	        new OpenSceneCommand(params),
+
 	        new AddPointCommand(params),
+	        new AddPolylineCommand(params),
 	    ];
 	}
 

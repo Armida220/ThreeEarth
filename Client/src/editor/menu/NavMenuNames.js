@@ -1,98 +1,77 @@
 var NavMenuNames = [{
     text: '场景',
     children: [{
-        id: 'newScene',
         text: '新建场景',
+        event: 'newScene',
     }, {
-        id: 'openScene',
-        text: '打开场景'
+        text: '打开场景',
+        event: 'openScene',
     }, {
-        id: 'saveScene',
         text: '保存场景',
-    }, {
-        id: 'quitEditor',
-        text: '退出'
-    }]
-}, {
-    text: '编辑',
-    children: [{
-        id: 'undo',
-        text: '取消'
-    }, {
-        id: 'redo',
-        text: '重做'
+        event: 'saveScene',
     }]
 }, {
     text: '配置',
     children: [{
-        id: 'mapPropertyConfig',
-        text: '地理要素'
+        text: '地理要素',
+        event: 'mapPropertyConfig'
     }, {
-        id: 'environmentSetting',
-        text: '环境设置'
+        text: '环境设置',
+        event: 'environmentSetting',
     }]
 }, {
     text: '物体',
     children: [{
-        id: 'addPoint',
-        text: '点'
+        text: '点',
+        event: 'addPoint',
     }, {
-        id: 'addPolyline',
-        text: '折线'
+        text: '折线',
+        event: 'addPolyline',
     }, {
-        id: 'addPolygon',
-        text: '多边形'
+        text: '多边形',
+        event: 'addPolygon',
     }, {
-        id: 'addRectangle',
-        text: '长方形'
+        text: '长方形',
+        event: 'addRectangle',
     }, {
-        id: 'addEllipse',
-        text: '椭圆'
+        text: '椭圆',
+        event: 'addEllipse',
     }, {
-        id: 'addCorridor',
-        text: '走廊'
+        text: '走廊',
+        event: 'addCorridor',
     }, {
-        id: 'addLabel',
-        text: '标签'
+        text: '标签',
+        event: 'addLabel',
     }, {
-        id: 'addBox',
-        text: '正方体'
+        text: '正方体',
+        event: 'addBox',
     }, {
-        id: 'addCylinder',
-        text: '圆柱体'
+        text: '圆柱体',
+        event: 'addCylinder',
     }, {
-        id: 'addTube',
-        text: '管道'
+        text: '管道',
+        event: 'addTube',
     }, {
-        id: 'addEllipsoid',
-        text: '椭球体'
+        text: '椭球体',
+        event: 'addEllipsoid',
     }, {
-        id: 'addWall',
-        text: '墙'
-    }]
-}, {
-    text: '运行',
-    children: [{
-        id: 'debug',
-        text: '调试'
-    }, {
-        id: 'play',
-        text: '运行'
+        text: '墙',
+        event: 'addWall',
     }]
 }, {
     text: '工具',
     children: [{
-        id: 'refreshMongo',
-        text: '更新Mongo'
+        text: '更新Mongo',
+        event: 'refreshMongo',
     }]
 }, {
     text: '帮助',
     children: [{
-        id: 'document',
-        text: '文档'
+        text: '文档',
+        event: 'document',
     }, {
-        id: 'about',
-        text: '关于'
+        text: '关于',
+        event: 'about',
     }]
 }];
 

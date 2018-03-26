@@ -43,6 +43,25 @@ Map.prototype.start = function () {
     this.app.viewer.camera.setView({
         destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
     });
+    var _this = this;
+    this.app.lonlatToWorld = function (lon, lat, alt) {
+        return _this.lonlatToWorld(lon, lat, alt);
+    };
+    this.app.worldToLonlat = function (x, y, z) {
+        return _this.worldToLonlat(x, y, z);
+    };
+    this.app.toRadian = function (degrees) {
+        return _this.toRadian(degrees);
+    };
+    this.app.toDegree = function (radians) {
+        return _this.toDegree(radians);
+    };
+    this.app.screenToWorld = function (x, y) {
+        return _this.screenToWorld(x, y);
+    };
+    this.app.worldToScreen = function (cartesian3) {
+        return _this.worldToLonlat(cartesian3);
+    };
     this.addEventListeners();
 };
 
@@ -79,6 +98,41 @@ Map.prototype.addEventListeners = function () {
     this.viewer.canvas.addEventListener('mousewheel', function () {
         _this.app.call('mousewheel', evt)
     });
+};
+
+Map.prototype.lonlatToWorld = function (lon, lat, alt) {
+    alt = alt || 0;
+    var ellipsoid = this.viewer.scene.globe.ellipsoid;
+    var cartographic = Cesium.Cartographic.fromDegrees(lon, lat, alt);
+    return ellipsoid.cartographicToCartesian(cartographic);
+};
+
+Map.prototype.worldToLonlat = function (x, y, z) {
+    var ellipsoid = this.viewer.scene.globe.ellipsoid;
+    var cartesian3 = new Cesium.cartesian3(x, y, z);
+    var cartographic = ellipsoid.cartesianToCartographic(cartesian3);
+    var lon = Cesium.Math.toDegrees(cartograhpinc.longitude);
+    var lat = Cesium.Math.toDegrees(cartograhphic.latitude);
+    var alt = cartographic.height;
+    return [lon, lat, alt];
+};
+
+Map.prototype.toRadian = function (degrees) {
+    return Cesium.CesiumMath.toRadians(degrees);
+};
+
+Map.prototype.toDegree = function (radians) {
+    return Cesium.CesiumMath.toDegrees(radians);
+};
+
+Map.prototype.screenToWorld = function (x, y) {
+    var pick = new Cesium.Cartesian2(x, y);
+    return this.viewer.scene.globe.pick(this.viewer.camera.getPickRay(pick), this.viewer.scene);
+};
+
+Map.prototype.worldToScreen = function (cartesian3) {
+    var screen;
+    return Cesium.SceneTransforms.wgs84ToWindowCoordinates(scene, cartesian3);
 };
 
 export { Map };

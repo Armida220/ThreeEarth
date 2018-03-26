@@ -1,5 +1,6 @@
 import { OpenSceneCommand } from './scene/OpenSceneCommand';
 import { AddPointCommand } from './object/AddPointCommand';
+import { AddPolylineCommand } from './object/AddPolylineCommand';
 
 function CommandDispatcher(options) {
     options = options || {};
@@ -8,7 +9,9 @@ function CommandDispatcher(options) {
     var params = { app: this.app };
     this.commands = [
         new OpenSceneCommand(params),
+
         new AddPointCommand(params),
+        new AddPolylineCommand(params),
     ];
 }
 
