@@ -1,5 +1,6 @@
 import { Control } from '../ui/Control';
 import { Options } from '../Options';
+import { BingMapsLayer } from '../layer/imagery/BingMapsLayer';
 
 function Map(options) {
     Control.call(this, options);
@@ -43,6 +44,8 @@ Map.prototype.start = function () {
     this.app.viewer.camera.setView({
         destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
     });
+    this.app.viewer.scene.imageryLayers.removeAll();
+    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer());
     var _this = this;
     this.app.lonlatToWorld = function (lon, lat, alt) {
         return _this.lonlatToWorld(lon, lat, alt);

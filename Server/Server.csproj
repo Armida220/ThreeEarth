@@ -90,6 +90,7 @@
     <Content Include="Service\TerrainService.ashx" />
     <Content Include="Service\TileService.ashx" />
     <Content Include="Service\FeatureSummaryService.ashx" />
+    <Content Include="Service\BingTileService.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -101,6 +102,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handler\BingMapsInfoHandler.cs" />
+    <Compile Include="Helpers\HttpHelper.cs" />
+    <Compile Include="Helpers\BingTileSystem.cs" />
+    <Compile Include="Service\BingTileService.ashx.cs">
+      <DependentUpon>BingTileService.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Service\FeatureConfigService.ashx.cs">
       <DependentUpon>FeatureConfigService.ashx</DependentUpon>
     </Compile>

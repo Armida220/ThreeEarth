@@ -1812,7 +1812,20 @@
 
 	var Options = new (function () {
 	    this.bingMapKey = 'Amvk_1DmXPpb7VB7JIXtWHBIpXdK8ABDN7E2xiK8olFovcy5KcVjVfpsW8rxoeVZ';
+	    this.bingMapServerUrl = 'http://127.0.0.1:8080/Service/BingTileService.ashx'; // 'https://dev.virtualearth.net', http://127.0.0.1:8080/Service/BingTileService.ashx
 	});
+
+	function BingMapsLayer(options) {
+	    var provider = new Cesium.BingMapsImageryProvider({
+	        url: Options.bingMapServerUrl,
+	        key: Options.bingMapKey,
+	        mapStyle: Cesium.BingMapsStyle.AERIAL
+	    });
+	    Cesium.ImageryLayer.call(this, provider, options);
+	}
+
+	BingMapsLayer.prototype = Object.create(Cesium.ImageryLayer.prototype);
+	BingMapsLayer.prototype.constructor = BingMapsLayer;
 
 	function Map(options) {
 	    Control.call(this, options);
@@ -1856,6 +1869,8 @@
 	    this.app.viewer.camera.setView({
 	        destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
 	    });
+	    this.app.viewer.scene.imageryLayers.removeAll();
+	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer());
 	    var _this = this;
 	    this.app.lonlatToWorld = function (lon, lat, alt) {
 	        return _this.lonlatToWorld(lon, lat, alt);
