@@ -5,6 +5,8 @@ using System.Web;
 using System.Net;
 using System.IO;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ThreeEarth.Server.Handler
 {
@@ -29,7 +31,8 @@ namespace ThreeEarth.Server.Handler
             reader.Close();
             stream.Close();
 
-            result = result.Replace("ecn.{subdomain}.tiles.virtualearth.net/tiles/a{quadkey}.jpeg?g=6349", "127.0.0.1:8080/Service/BingTileService.ashx?subdomain={subdomain}&quadkey={quadkey}");
+            result = result.Replace("http:\\/\\/ecn.{subdomain}.tiles.virtualearth.net\\/tiles\\/a{quadkey}.jpeg?g=6349",
+                "http:\\/\\/127.0.0.1:8099\\/Service\\/BingTileService.ashx?subdomain={subdomain}&quadkey={quadkey}");
 
             context.Response.ContentType = response.ContentType;
             context.Response.Write(result);
