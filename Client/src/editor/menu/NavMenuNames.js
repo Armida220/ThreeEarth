@@ -59,6 +59,18 @@ var NavMenuNames = [{
         event: 'addWall',
     }]
 }, {
+    text: '底图',
+    children: [{
+        text: '必应卫星图',
+        event: 'bingMapsAerial'
+    }, {
+        text: '必应卫星图带标注',
+        event: 'bingMapsAerialWithLabels'
+    }, {
+        text: '必应路网',
+        event: 'bingMapsRoad'
+    }]
+}, {
     text: '工具',
     children: [{
         text: '更新Mongo',

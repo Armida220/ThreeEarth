@@ -50,6 +50,11 @@
 	    'addEllipsoid',
 	    'addWall',
 
+	    // 底图
+	    'bingMapsAerial',
+	    'bingMapsAerialWithLabels',
+	    'bingMapsRoad',
+
 	    'debug',
 	    'play',
 
@@ -1700,6 +1705,18 @@
 	        event: 'addWall',
 	    }]
 	}, {
+	    text: '底图',
+	    children: [{
+	        text: '必应卫星图',
+	        event: 'bingMapsAerial'
+	    }, {
+	        text: '必应卫星图带标注',
+	        event: 'bingMapsAerialWithLabels'
+	    }, {
+	        text: '必应路网',
+	        event: 'bingMapsRoad'
+	    }]
+	}, {
 	    text: '工具',
 	    children: [{
 	        text: '更新Mongo',
@@ -1816,10 +1833,12 @@
 	});
 
 	function BingMapsLayer(options) {
+	    options = options || {};
 	    var provider = new Cesium.BingMapsImageryProvider({
 	        url: Options.bingMapServerUrl,
 	        key: Options.bingMapKey,
-	        mapStyle: Cesium.BingMapsStyle.AERIAL
+	        mapStyle: options.mapStyle || Cesium.BingMapsStyle.AERIAL,
+	        culture: 'zh-Hans'
 	    });
 	    Cesium.ImageryLayer.call(this, provider, options);
 	}
@@ -2525,6 +2544,67 @@
 	    this.polygon = null;
 	};
 
+	function BingMapsAerialCommand(options) {
+	    BaseCommand.call(this, options);
+	}
+
+	BingMapsAerialCommand.prototype = Object.create(BaseCommand.prototype);
+	BingMapsAerialCommand.prototype.constructor = BingMapsAerialCommand;
+
+	BingMapsAerialCommand.prototype.start = function () {
+	    var _this = this;
+	    this.app.on('bingMapsAerial', function () {
+	        _this.run();
+	    });
+	};
+
+	BingMapsAerialCommand.prototype.run = function () {
+	    this.app.viewer.scene.imageryLayers.removeAll();
+	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer());
+	};
+
+	function BingMapsAerialWithLabelsCommand(options) {
+	    BaseCommand.call(this, options);
+	}
+
+	BingMapsAerialWithLabelsCommand.prototype = Object.create(BaseCommand.prototype);
+	BingMapsAerialWithLabelsCommand.prototype.constructor = BingMapsAerialWithLabelsCommand;
+
+	BingMapsAerialWithLabelsCommand.prototype.start = function () {
+	    var _this = this;
+	    this.app.on('bingMapsAerialWithLabels', function () {
+	        _this.run();
+	    });
+	};
+
+	BingMapsAerialWithLabelsCommand.prototype.run = function () {
+	    this.app.viewer.scene.imageryLayers.removeAll();
+	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer({
+	        mapStyle: Cesium.BingMapsStyle.AERIAL_WITH_LABELS
+	    }));
+	};
+
+	function BingMapsRoadCommand(options) {
+	    BaseCommand.call(this, options);
+	}
+
+	BingMapsRoadCommand.prototype = Object.create(BaseCommand.prototype);
+	BingMapsRoadCommand.prototype.constructor = BingMapsRoadCommand;
+
+	BingMapsRoadCommand.prototype.start = function () {
+	    var _this = this;
+	    this.app.on('bingMapsRoad', function () {
+	        _this.run();
+	    });
+	};
+
+	BingMapsRoadCommand.prototype.run = function () {
+	    this.app.viewer.scene.imageryLayers.removeAll();
+	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer({
+	        mapStyle: Cesium.BingMapsStyle.ROAD
+	    }));
+	};
+
 	function CommandDispatcher(options) {
 	    options = options || {};
 	    this.app = options.app || null;
@@ -2536,6 +2616,10 @@
 	        new AddPointCommand(params),
 	        new AddPolylineCommand(params),
 	        new AddPolygonCommand(params),
+
+	        new BingMapsAerialCommand(params),
+	        new BingMapsAerialWithLabelsCommand(params),
+	        new BingMapsRoadCommand(params)
 	    ];
 	}
 

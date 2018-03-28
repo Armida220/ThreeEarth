@@ -29,6 +29,11 @@ var CustomEventNames = [
     'addEllipsoid',
     'addWall',
 
+    // 底图
+    'bingMapsAerial',
+    'bingMapsAerialWithLabels',
+    'bingMapsRoad',
+
     'debug',
     'play',
 
