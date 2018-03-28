@@ -1828,6 +1828,9 @@
 	};
 
 	var Options = new (function () {
+	    this.center = [119.36334892304187, 36.55804895201371];
+	    this.altitude = 527395.7046564185;
+
 	    this.bingMapKey = 'Amvk_1DmXPpb7VB7JIXtWHBIpXdK8ABDN7E2xiK8olFovcy5KcVjVfpsW8rxoeVZ';
 	    this.bingMapServerUrl = 'https://dev.virtualearth.net';
 	});
@@ -1886,7 +1889,7 @@
 	    });
 	    this.app.viewer = this.viewer;
 	    this.app.viewer.camera.setView({
-	        destination: new Cesium.Cartesian3(-2722888.5452312864, 4839584.616677277, 4092247.0954614747)
+	        destination: this.lonlatToWorld(Options.center[0], Options.center[1], Options.altitude)
 	    });
 	    this.app.viewer.scene.imageryLayers.removeAll();
 	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer());
@@ -1956,10 +1959,10 @@
 
 	Map.prototype.worldToLonlat = function (x, y, z) {
 	    var ellipsoid = this.viewer.scene.globe.ellipsoid;
-	    var cartesian3 = new Cesium.cartesian3(x, y, z);
+	    var cartesian3 = new Cesium.Cartesian3(x, y, z);
 	    var cartographic = ellipsoid.cartesianToCartographic(cartesian3);
-	    var lon = Cesium.Math.toDegrees(cartograhpinc.longitude);
-	    var lat = Cesium.Math.toDegrees(cartograhphic.latitude);
+	    var lon = Cesium.Math.toDegrees(cartographic.longitude);
+	    var lat = Cesium.Math.toDegrees(cartographic.latitude);
 	    var alt = cartographic.height;
 	    return [lon, lat, alt];
 	};
