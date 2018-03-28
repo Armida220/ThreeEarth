@@ -969,6 +969,8 @@
 	    this.height = options.height || 'auto';
 	    this.html = options.html || null;
 	    this.children = options.children || [];
+	    this.buttons = options.buttons || []; // { text: '', icon: '', click: function() {} }
+	    this.bodyStyle = options.bodyStyle || null;
 	}
 
 	Dialog.prototype = Object.create(Control.prototype);
@@ -978,6 +980,9 @@
 	    this.el.div = document.createElement('div');
 	    this.el.div.setAttribute('title', this.title);
 	    this.el.div.innerHTML = this.html;
+	    if (this.bodyStyle) {
+	        this.el.div.style = this.bodyStyle;
+	    }
 	    this.parent.appendChild(this.el.div);
 	    var _this = this;
 	    this.children.forEach(function (n) {
@@ -986,7 +991,8 @@
 	    });
 	    $(this.el.div).dialog({
 	        width: this.width,
-	        height: this.height
+	        height: this.height,
+	        buttons: this.buttons
 	    });
 	};
 
@@ -2272,6 +2278,62 @@
 
 	};
 
+	function MessageBox(options) {
+	    Control.call(this, options);
+	    options = options || {};
+	    this.title = options.title || '消息';
+	    this.msg = options.msg || '';
+	    var _this = this;
+	    this.dialog = new Dialog({
+	        title: this.title,
+	        html: this.msg,
+	        width: 300,
+	        height: 180,
+	        bodyStyle: 'padding: 15px;',
+	        buttons: [{
+	            text: '关闭',
+	            click: function () {
+	                _this.hide();
+	            }
+	        }]
+	    });
+	    this.dialog.render();
+	}
+
+	MessageBox.prototype = Object.create(Control.prototype);
+	MessageBox.prototype.constructor = MessageBox;
+
+	MessageBox.prototype.show = function () {
+	    this.dialog.show();
+	};
+
+	MessageBox.prototype.hide = function () {
+	    this.dialog.hide();
+	};
+
+	function NewSceneCommand(options) {
+	    BaseCommand.call(this, options);
+	}
+
+	NewSceneCommand.prototype = Object.create(BaseCommand.prototype);
+	NewSceneCommand.prototype.constructor = NewSceneCommand;
+
+	NewSceneCommand.prototype.start = function () {
+	    var _this = this;
+	    this.app.on('newScene', function () {
+	        _this.run();
+	    });
+	};
+
+	NewSceneCommand.prototype.run = function () {
+	    this.app.viewer.entities.removeAll();
+	    var msg = new MessageBox({
+	        title: '消息',
+	        msg: '新建场景成功！'
+	    });
+	    msg.show();
+	};
+
 	function OpenSceneWin(options) {
 	    Dialog.call(this, options);
 	    this.app = options.app;
@@ -2614,6 +2676,7 @@
 
 	    var params = { app: this.app };
 	    this.commands = [
+	        new NewSceneCommand(params),
 	        new OpenSceneCommand(params),
 
 	        new AddPointCommand(params),

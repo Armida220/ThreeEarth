@@ -1,3 +1,4 @@
+import { NewSceneCommand } from './scene/NewSceneCommand';
 import { OpenSceneCommand } from './scene/OpenSceneCommand';
 
 import { AddPointCommand } from './object/AddPointCommand';
@@ -14,6 +15,7 @@ function CommandDispatcher(options) {
 
     var params = { app: this.app };
     this.commands = [
+        new NewSceneCommand(params),
         new OpenSceneCommand(params),
 
         new AddPointCommand(params),

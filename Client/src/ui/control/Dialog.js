@@ -8,6 +8,8 @@ function Dialog(options) {
     this.height = options.height || 'auto';
     this.html = options.html || null;
     this.children = options.children || [];
+    this.buttons = options.buttons || []; // { text: '', icon: '', click: function() {} }
+    this.bodyStyle = options.bodyStyle || null;
 }
 
 Dialog.prototype = Object.create(Control.prototype);
@@ -17,6 +19,9 @@ Dialog.prototype.render = function () {
     this.el.div = document.createElement('div');
     this.el.div.setAttribute('title', this.title);
     this.el.div.innerHTML = this.html;
+    if (this.bodyStyle) {
+        this.el.div.style = this.bodyStyle;
+    }
     this.parent.appendChild(this.el.div);
     var _this = this;
     this.children.forEach(function (n) {
@@ -25,7 +30,8 @@ Dialog.prototype.render = function () {
     });
     $(this.el.div).dialog({
         width: this.width,
-        height: this.height
+        height: this.height,
+        buttons: this.buttons
     });
 };
 
