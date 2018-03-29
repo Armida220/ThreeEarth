@@ -24,13 +24,17 @@ TextField.prototype.render = function () {
         this.el.label.style.width = this.labelWidth;
         this.el.label.style.display = 'inline-block';
         this.el.label.style.textAlign = 'right';
+        this.el.div.appendChild(this.el.label);
     }
 
     this.el.input = document.createElement('input');
     this.el.input.type = this.type;
     this.el.input.value = this.value;
     this.el.input.style.marginLeft = '10px';
-    this.el.input.style.disabled = this.enabled;
+    if (!this.enabled) {
+        this.el.input.disabled = 'disabled';
+    }
+    this.el.div.appendChild(this.el.input);
 };
 
 TextField.prototype.getValue = function () {

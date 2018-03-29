@@ -818,13 +818,17 @@
 	        this.el.label.style.width = this.labelWidth;
 	        this.el.label.style.display = 'inline-block';
 	        this.el.label.style.textAlign = 'right';
+	        this.el.div.appendChild(this.el.label);
 	    }
 
 	    this.el.input = document.createElement('input');
 	    this.el.input.type = this.type;
 	    this.el.input.value = this.value;
 	    this.el.input.style.marginLeft = '10px';
-	    this.el.input.style.disabled = this.enabled;
+	    if (!this.enabled) {
+	        this.el.input.disabled = 'disabled';
+	    }
+	    this.el.div.appendChild(this.el.input);
 	};
 
 	TextField.prototype.getValue = function () {
@@ -2404,8 +2408,9 @@
 	    Dialog.call(this, options);
 	    this.app = options.app;
 	    this.title = '保存场景';
-	    this.width = 920;
-	    this.height = 500;
+	    this.width = 250;
+	    this.height = 180;
+	    this.bodyStyle = 'padding: 15px 10px';
 
 	    this.textField = new TextField({
 	        label: '名称'
@@ -2414,6 +2419,15 @@
 	    this.children = [
 	        this.textField
 	    ];
+
+	    var _this = this;
+
+	    this.buttons = [{
+	        text: '保存',
+	        click: function () {
+	            _this.save();
+	        }
+	    }];
 	}
 
 	SaveSceneWin.prototype = Object.create(Dialog.prototype);
@@ -2421,6 +2435,10 @@
 
 	SaveSceneWin.prototype.render = function () {
 	    Dialog.prototype.render.call(this);
+	};
+
+	SaveSceneWin.prototype.save = function () {
+	    debugger
 	};
 
 	function SaveSceneCommand(options) {

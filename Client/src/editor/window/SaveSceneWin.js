@@ -5,8 +5,9 @@ function SaveSceneWin(options) {
     Dialog.call(this, options);
     this.app = options.app;
     this.title = '保存场景';
-    this.width = 920;
-    this.height = 500;
+    this.width = 250;
+    this.height = 180;
+    this.bodyStyle = 'padding: 15px 10px';
 
     this.textField = new TextField({
         label: '名称'
@@ -15,6 +16,15 @@ function SaveSceneWin(options) {
     this.children = [
         this.textField
     ];
+
+    var _this = this;
+
+    this.buttons = [{
+        text: '保存',
+        click: function () {
+            _this.save();
+        }
+    }]
 }
 
 SaveSceneWin.prototype = Object.create(Dialog.prototype);
@@ -22,6 +32,10 @@ SaveSceneWin.prototype.constructor = SaveSceneWin;
 
 SaveSceneWin.prototype.render = function () {
     Dialog.prototype.render.call(this);
+};
+
+SaveSceneWin.prototype.save = function () {
+    debugger
 };
 
 export { SaveSceneWin };
