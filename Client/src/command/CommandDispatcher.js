@@ -1,5 +1,6 @@
 import { NewSceneCommand } from './scene/NewSceneCommand';
 import { OpenSceneCommand } from './scene/OpenSceneCommand';
+import { SaveSceneCommand } from './scene/SaveSceneCommand';
 
 import { AddPointCommand } from './object/AddPointCommand';
 import { AddPolylineCommand } from './object/AddPolylineCommand';
@@ -17,6 +18,7 @@ function CommandDispatcher(options) {
     this.commands = [
         new NewSceneCommand(params),
         new OpenSceneCommand(params),
+        new SaveSceneCommand(params),
 
         new AddPointCommand(params),
         new AddPolylineCommand(params),

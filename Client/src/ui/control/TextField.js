@@ -14,64 +14,35 @@ TextField.prototype = Object.create(Control.prototype);
 TextField.prototype.constructor = TextField;
 
 TextField.prototype.render = function () {
-    // this.el.div = d3.select(this.parent)
-    //     .append('div')
-    //     .style('margin', '3px 0')
-    //     .node();
+    this.el.div = document.createElement('div');
+    this.el.div.style.margin = '3px 0';
+    this.parent.appendChild(this.el.div);
 
-    // if (this.label) {
-    //     this.el.label = d3.select(this.el.div)
-    //         .append('label')
-    //         .data([this])
-    //         .text(function(d) {
-    //             return d.label;
-    //         })
-    //         .style('width', function(d) {
-    //             return d.labelWidth;
-    //         })
-    //         .style('display', 'inline-block')
-    //         .style('text-align', 'right')
-    //         .node();
-    // }
+    if (this.label) {
+        this.el.label = document.createElement('label');
+        this.el.label.innerHTML = this.label;
+        this.el.label.style.width = this.labelWidth;
+        this.el.label.style.display = 'inline-block';
+        this.el.label.style.textAlign = 'right';
+    }
 
-    // this.el.input = d3.select(this.el.div)
-    //     .append('input')
-    //     .data([this])
-    //     .property('type', function(d) {
-    //         return d.type;
-    //     })
-    //     .attr('value', function(d) {
-    //         return d.value;
-    //     })
-    //     .style('margin-left', '10px')
-    //     .attr('disabled', function(d) {
-    //         if (d.enabled) {
-    //             return null;
-    //         } else {
-    //             return 'disabled';
-    //         }
-    //     })
-    //     .node();
+    this.el.input = document.createElement('input');
+    this.el.input.type = this.type;
+    this.el.input.value = this.value;
+    this.el.input.style.marginLeft = '10px';
+    this.el.input.style.disabled = this.enabled;
 };
 
 TextField.prototype.getValue = function () {
-    // return d3.select(this.el.input).property('value');
+    return this.el.input.value;
 };
 
 TextField.prototype.setValue = function (value) {
-    // this.value = value;
-    // d3.select(this.el.input).property('value', this.value);
+    this.el.input.value = value;
 };
 
 TextField.prototype.on = function (eventName, callback) {
-    // if (callback == null) {
-    //     d3.select(this.el.input).on(eventName, null);
-    // } else if (typeof(callback) == 'function') {
-    //     var _this = this;
-    //     d3.select(this.el.input).on(eventName, function() {
-    //         callback.call(_this, _this.getValue());
-    //     });
-    // }
+
 };
 
 export { TextField };
