@@ -86,6 +86,7 @@
   <ItemGroup>
     <Content Include="Service\FeatureService.ashx" />
     <Content Include="Service\FeatureConfigService.ashx" />
+    <Content Include="Handler\SaveSceneHandler.ashx" />
     <None Include="packages.config" />
     <Content Include="Service\TerrainService.ashx" />
     <Content Include="Service\TileService.ashx" />
@@ -103,6 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handler\BingMapsInfoHandler.cs" />
+    <Compile Include="Handler\SaveSceneHandler.ashx.cs">
+      <DependentUpon>SaveSceneHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\BingTileSystem.cs" />
     <Compile Include="Service\BingTileService.ashx.cs">
