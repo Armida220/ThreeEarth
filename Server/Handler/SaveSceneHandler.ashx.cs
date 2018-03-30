@@ -37,13 +37,23 @@ namespace ThreeEarth.Server.Handler
 
         private void ParseBsonDocument(JObject obj, ref BsonDocument doc)
         {
-            doc["id"] = i["id"].ToString();
-            var geoType = i["geometry"]["type"].ToString();
+            doc["type"] = "Feature";
+            doc["id"] = obj["id"].ToString();
+            doc["geometry"] = new BsonDocument();
+            var geoType = obj["geometry"]["type"].ToString();
             if (geoType == "Polygon")
+            {
+                var coordinates = new BsonArray();
+                var coordinates1 = new BsonArray();
+            }
+            else if (geoType == "LineString")
             {
 
             }
-            else if (geoType == )
+            else
+            {
+
+            }
         }
 
         public bool IsReusable

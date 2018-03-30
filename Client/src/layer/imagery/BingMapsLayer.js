@@ -2,9 +2,10 @@ import { Options } from '../../Options';
 
 function BingMapsLayer(options) {
     options = options || {};
+    this.app = options.app;
     var provider = new Cesium.BingMapsImageryProvider({
-        url: Options.bingMapServerUrl,
-        key: Options.bingMapKey,
+        url: this.app.options.bingMapServerUrl,
+        key: this.app.options.bingMapKey,
         mapStyle: options.mapStyle || Cesium.BingMapsStyle.AERIAL,
         culture: 'zh-Hans'
     })

@@ -1,8 +1,10 @@
+import { Options } from './Options';
 import { Editor } from './editor/Editor';
 import { CustomEvent } from './event/CustomEvent';
 import { CommandDispatcher } from './command/CommandDispatcher';
 
 function Application(options) {
+    this.options = new Options(options);
     this.event = new CustomEvent({
         app: this
     });

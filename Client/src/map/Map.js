@@ -1,12 +1,11 @@
 import { Control } from '../ui/Control';
-import { Options } from '../Options';
 import { BingMapsLayer } from '../layer/imagery/BingMapsLayer';
 
 function Map(options) {
     Control.call(this, options);
     this.app = options.app;
     this.app.map = this;
-    Cesium.BingMapsApi.defaultKey = Options.bingMapKey;
+    Cesium.BingMapsApi.defaultKey = this.app.options.bingMapKey;
 }
 
 Map.prototype = Object.create(Control.prototype);
@@ -42,10 +41,12 @@ Map.prototype.start = function () {
     });
     this.app.viewer = this.viewer;
     this.app.viewer.camera.setView({
-        destination: this.lonlatToWorld(Options.center[0], Options.center[1], Options.altitude)
+        destination: this.lonlatToWorld(this.app.options.center[0], this.app.options.center[1], this.app.options.altitude)
     });
     this.app.viewer.scene.imageryLayers.removeAll();
-    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer());
+    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer({
+        app: this.app
+    }));
     var _this = this;
     this.app.lonlatToWorld = function (lon, lat, alt) {
         return _this.lonlatToWorld(lon, lat, alt);
@@ -64,6 +65,9 @@ Map.prototype.start = function () {
     };
     this.app.worldToScreen = function (cartesian3) {
         return _this.worldToLonlat(cartesian3);
+    };
+    this.app.entityToGeoJsons = function (entity) {
+        return _this.entityToGeoJsons(entity);
     };
     this.addEventListeners();
 };
@@ -136,6 +140,80 @@ Map.prototype.screenToWorld = function (x, y) {
 Map.prototype.worldToScreen = function (cartesian3) {
     var screen;
     return Cesium.SceneTransforms.wgs84ToWindowCoordinates(scene, cartesian3);
+};
+
+Map.prototype.entityToGeoJsons = function (entity) {
+    var geoJsons = [];
+    var _this = this;
+    if (entity.position != null) {
+        var coordinates = this.app.viewer.entities.values[0].position._value;
+        var lonlat = this.worldToLonlat(coordinates.x, coordinates.y, coordinates.z);
+        var geoJson = {
+            type: 'Feature',
+            geometry: {
+                type: 'Point',
+                coordinates: [lonlat[0], lonlat[1]]
+            },
+            properties: {
+                name: ''
+            },
+            point_properties: {
+                altitude: lonlat[2]
+            }
+        };
+        geoJsons.push(geoJson);
+    }
+    if (entity.polyline != null) {
+        var coordinates = this.app.viewer.entities.values[1].polyline.positions.getValue();
+        var geoJson = {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: []
+            },
+            properties: {
+                name: ''
+            },
+            point_properties: []
+        };
+        coordinates.forEach(function (n) {
+            var lonlat = _this.worldToLonlat(n.x, n.y, n.z);
+            geoJson.geometry.coordinates.push([
+                lonlat[0],
+                lonlat[1]
+            ]);
+            geoJson.point_properties.push({
+                altitude: lonlat[2]
+            });
+        });
+        geoJsons.push(geoJson);
+    }
+    if (entity.polygon != null) {
+        var coordinates = this.app.viewer.entities.values[2].polygon.hierarchy.getValue();
+        var geoJson = {
+            type: 'Feature',
+            geometry: {
+                type: 'LineString',
+                coordinates: [[]]
+            },
+            properties: {
+                name: ''
+            },
+            point_properties: [[]]
+        };
+        coordinates.forEach(function (n) {
+            var lonlat = _this.worldToLonlat(n.x, n.y, n.z);
+            geoJson.geometry.coordinates[0].push([
+                lonlat[0],
+                lonlat[1]
+            ]);
+            geoJson.point_properties[0].push({
+                altitude: lonlat[2]
+            });
+        });
+        geoJsons.push(geoJson);
+    }
+    return geoJsons;
 };
 
 export { Map };

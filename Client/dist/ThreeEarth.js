@@ -1808,19 +1808,23 @@
 
 	};
 
-	var Options = new (function () {
-	    this.center = [119.36334892304187, 36.55804895201371];
-	    this.altitude = 527395.7046564185;
+	function Options(options) {
+	    options = options || {};
 
-	    this.bingMapKey = 'Amvk_1DmXPpb7VB7JIXtWHBIpXdK8ABDN7E2xiK8olFovcy5KcVjVfpsW8rxoeVZ';
-	    this.bingMapServerUrl = 'https://dev.virtualearth.net';
-	});
+	    this.center = options.center || [119.36334892304187, 36.55804895201371];
+	    this.altitude = options.altitude || 527395.7046564185;
+	    this.serverUrl = options.serverUrl || 'http://127.0.0.1:8099';
+
+	    this.bingMapKey = options.bingMapKey || 'Amvk_1DmXPpb7VB7JIXtWHBIpXdK8ABDN7E2xiK8olFovcy5KcVjVfpsW8rxoeVZ';
+	    this.bingMapServerUrl = options.bingMapServerUrl || 'https://dev.virtualearth.net';
+	}
 
 	function BingMapsLayer(options) {
 	    options = options || {};
+	    this.app = options.app;
 	    var provider = new Cesium.BingMapsImageryProvider({
-	        url: Options.bingMapServerUrl,
-	        key: Options.bingMapKey,
+	        url: this.app.options.bingMapServerUrl,
+	        key: this.app.options.bingMapKey,
 	        mapStyle: options.mapStyle || Cesium.BingMapsStyle.AERIAL,
 	        culture: 'zh-Hans'
 	    });
@@ -1834,7 +1838,7 @@
 	    Control.call(this, options);
 	    this.app = options.app;
 	    this.app.map = this;
-	    Cesium.BingMapsApi.defaultKey = Options.bingMapKey;
+	    Cesium.BingMapsApi.defaultKey = this.app.options.bingMapKey;
 	}
 
 	Map.prototype = Object.create(Control.prototype);
@@ -1870,10 +1874,12 @@
 	    });
 	    this.app.viewer = this.viewer;
 	    this.app.viewer.camera.setView({
-	        destination: this.lonlatToWorld(Options.center[0], Options.center[1], Options.altitude)
+	        destination: this.lonlatToWorld(this.app.options.center[0], this.app.options.center[1], this.app.options.altitude)
 	    });
 	    this.app.viewer.scene.imageryLayers.removeAll();
-	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer());
+	    this.app.viewer.scene.imageryLayers.add(new BingMapsLayer({
+	        app: this.app
+	    }));
 	    var _this = this;
 	    this.app.lonlatToWorld = function (lon, lat, alt) {
 	        return _this.lonlatToWorld(lon, lat, alt);
@@ -1892,6 +1898,9 @@
 	    };
 	    this.app.worldToScreen = function (cartesian3) {
 	        return _this.worldToLonlat(cartesian3);
+	    };
+	    this.app.entityToGeoJsons = function (entity) {
+	        return _this.entityToGeoJsons(entity);
 	    };
 	    this.addEventListeners();
 	};
@@ -1963,6 +1972,80 @@
 
 	Map.prototype.worldToScreen = function (cartesian3) {
 	    return Cesium.SceneTransforms.wgs84ToWindowCoordinates(scene, cartesian3);
+	};
+
+	Map.prototype.entityToGeoJsons = function (entity) {
+	    var geoJsons = [];
+	    var _this = this;
+	    if (entity.position != null) {
+	        var coordinates = this.app.viewer.entities.values[0].position._value;
+	        var lonlat = this.worldToLonlat(coordinates.x, coordinates.y, coordinates.z);
+	        var geoJson = {
+	            type: 'Feature',
+	            geometry: {
+	                type: 'Point',
+	                coordinates: [lonlat[0], lonlat[1]]
+	            },
+	            properties: {
+	                name: ''
+	            },
+	            point_properties: {
+	                altitude: lonlat[2]
+	            }
+	        };
+	        geoJsons.push(geoJson);
+	    }
+	    if (entity.polyline != null) {
+	        var coordinates = this.app.viewer.entities.values[1].polyline.positions.getValue();
+	        var geoJson = {
+	            type: 'Feature',
+	            geometry: {
+	                type: 'LineString',
+	                coordinates: []
+	            },
+	            properties: {
+	                name: ''
+	            },
+	            point_properties: []
+	        };
+	        coordinates.forEach(function (n) {
+	            var lonlat = _this.worldToLonlat(n.x, n.y, n.z);
+	            geoJson.geometry.coordinates.push([
+	                lonlat[0],
+	                lonlat[1]
+	            ]);
+	            geoJson.point_properties.push({
+	                altitude: lonlat[2]
+	            });
+	        });
+	        geoJsons.push(geoJson);
+	    }
+	    if (entity.polygon != null) {
+	        var coordinates = this.app.viewer.entities.values[2].polygon.hierarchy.getValue();
+	        var geoJson = {
+	            type: 'Feature',
+	            geometry: {
+	                type: 'LineString',
+	                coordinates: [[]]
+	            },
+	            properties: {
+	                name: ''
+	            },
+	            point_properties: [[]]
+	        };
+	        coordinates.forEach(function (n) {
+	            var lonlat = _this.worldToLonlat(n.x, n.y, n.z);
+	            geoJson.geometry.coordinates[0].push([
+	                lonlat[0],
+	                lonlat[1]
+	            ]);
+	            geoJson.point_properties[0].push({
+	                altitude: lonlat[2]
+	            });
+	        });
+	        geoJsons.push(geoJson);
+	    }
+	    return geoJsons;
 	};
 
 	function GlScene(options) {
@@ -2438,7 +2521,25 @@
 	};
 
 	SaveSceneWin.prototype.save = function () {
-	    debugger
+	    var geoJsons = [];
+	    var _this = this;
+	    this.app.viewer.entities.values.forEach(function (n) {
+	        geoJsons = geoJsons.concat(_this.app.entityToGeoJsons(n));
+	    });
+	    var _this = this;
+	    $.post(this.app.options.serverUrl + '/Handler/SaveSceneHandler.ashx', {
+	        name: _this.textField.getValue(),
+	        layerName: _this.textField.getValue(),
+	        data: JSON.stringify(geoJsons)
+	    }, function () {
+	        if (_this.msg == null) {
+	            _this.msg = new MessageBox({
+	                title: '消息',
+	                msg: '保存成功！'
+	            });
+	        }
+	        _this.msg.show();
+	    });
 	};
 
 	function SaveSceneCommand(options) {
@@ -2733,6 +2834,7 @@
 	};
 
 	function Application(options) {
+	    this.options = new Options(options);
 	    this.event = new CustomEvent({
 	        app: this
 	    });
